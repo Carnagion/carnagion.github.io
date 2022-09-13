@@ -1,0 +1,1 @@
+A client-side addon serving as a settings framework for other [IsleWard](https://play.isleward.com) addons.
