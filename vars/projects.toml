@@ -1,7 +1,7 @@
 [meta]
 title = "Projects - Indraneel Mahendrakumar"
-description = ""
-keywords = ""
+description = "Indraneel Mahendrakumar's projects."
+keywords = "portfolio, projects"
 stylesheets = ["borders", "colors", "flex", "markdown", "spacing", "text"]
 scripts = ["equalize"]
 
