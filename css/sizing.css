@@ -1,0 +1,23 @@
+:root {
+    --height-tiny: 2rem;
+    --height-screen: 100vh;
+}
+
+:root {
+    --width-tiny: 2rem;
+}
+
+/* Tiny height */
+.height-tiny {
+    height: var(--height-tiny);
+}
+
+/* 100% screen height */
+.height-screen {
+    height: var(--height-screen);
+}
+
+/* Tiny width */
+.width-tiny {
+    width: var(--width-tiny);
+}
