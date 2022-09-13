@@ -1,0 +1,2 @@
+args-advent := load("projects/advent")
+include("page", { meta: args-advent.meta, markdown: content("projects/advent") })

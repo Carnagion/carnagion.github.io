@@ -1,0 +1,2 @@
+args-jabberwock := load("projects/jabberwock")
+include("page", { meta: args-jabberwock.meta, markdown: content("projects/jabberwock") })

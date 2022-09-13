@@ -1,0 +1,2 @@
+args-modot := load("projects/modot")
+include("page", { meta: args-modot.meta, markdown: content("projects/modot") })
