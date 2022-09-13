@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-jabberwock = { version = "0.1.0", path = "../jabberwock" }
+jabberwock = "0.1.0"
