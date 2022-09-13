@@ -1,0 +1,29 @@
+/* Display as flexbox */
+.flex {
+    display: flex;
+}
+
+/* Flex horizontally */
+.flex.row {
+    flex-direction: row;
+}
+
+/* Flex vertically */
+.flex.col {
+    flex-direction: column;
+}
+
+/* Grow fully in flex layouts */
+.flex .grow {
+    flex-grow: 1;
+}
+
+/* Justify children with maximum space between */
+.flex.justify {
+    justify-content: space-between;
+}
+
+/* Wrap flex items */
+.flex.wrap {
+    flex-wrap: wrap;
+}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang='en'><head><title>Modot - Indraneel Mahendrakumar</title>
+<meta charset='utf-8'></meta>
+<meta name='generator' content='jabberwock'></meta>
+<meta name='title' content='Modot - Indraneel Mahendrakumar'></meta>
+<meta name='description' content=''></meta>
+<meta name='keywords' content=''></meta>
+<meta name='author' content='Indraneel Mahendrakumar'></meta>
+<meta name='viewport' content='width=device-width,initial-scale=1'></meta>
+<meta http-equiv='content-language' content='en'></meta>
+<base href='/carnagion.github.io/'></base>
+<link type='text/css' href='css/colors.css' rel='stylesheet'></link>
+<link type='text/css' href='css/flex.css' rel='stylesheet'></link>
+<link type='text/css' href='css/markdown.css' rel='stylesheet'></link>
+<link type='text/css' href='css/sizing.css' rel='stylesheet'></link>
+<link type='text/css' href='css/spacing.css' rel='stylesheet'></link>
+<link type='text/css' href='css/text.css' rel='stylesheet'></link>
+</head>
+<body class='flex col height-screen margin-vertical-none margin-horizontal-large font-segoe bgcolor-thunder'><header class='margin-vertical-small'><nav class='flex row justify fontsize-medium'><div class='weight-semibold'><a class='decor-underline-hover decor-thick color-pampas decolor-dandelion' href='index.html' rel='me'>Indraneel Mahendrakumar</a>
+</div>
+<div class='flex row gap-tiny weight-semibold'><a class='decor-underline-hover decor-thick color-pampas decolor-dandelion' href='projects.html' rel='me'>Projects</a>
+<a class='decor-underline-hover decor-thick color-pampas decolor-dandelion' href='contact.html' rel='me'>Contact</a>
+</div>
+</nav>
+</header>
+<main class='grow'><div class='markdown'><h1 id='modot'>Modot</h1>
+
+<p><em>June 2022 - Present</em> <strong>·</strong> <a href='https://github.com/Carnagion/Modot'>GitHub</a> <strong>·</strong> <a href='https://www.nuget.org/packages/Modot'>NuGet</a></p>
+
+<p><strong>Modot</strong> is a mod loader for C# <a href='https://godotengine.org'>Godot</a> applications, inspired by <a href='https://rimworldgame.com'>RimWorld</a>&#8217;s mod loading process.</p>
+
+<p>I began working on parts of <strong>Modot</strong> back in 2021, when I first learned about and experimented with <strong>Godot Engine</strong>, though I took a very long break from it after a few months that produced very unsatisfactory code.</p>
+
+<p>My interest in it was renewed after I created <a href='projects/gdserializer.html'>GDSerializer</a>, and I soon had the goal of create an easy-to-use mod loading API for the vast majority of situations.</p>
+
+<p>The bulk of <strong>Modot</strong>&#8217;s logic lies in its mod-sorting algorithm, which relies on loading metadata files containing a mod&#8217;s ID, dependencies, and other information, and then sorting the metadata using a variant of <a href='https://en.wikipedia.org/wiki/Topological_sorting'>topological sort</a>. It took me multiple tries to write this in a way that I was satisfied with. The current implementation is quite functional in style, making heavy use of C#&#8217;s <a href='https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq'>LINQ</a>.</p>
+
+<p>The mods themselves can contain XML data, C# assemblies, and XML patches, all of which are loaded at runtime and executed (in the case of assemblies and patches). This is very similar to <strong>RimWorld</strong>&#8217;s mods, though <strong>Modot</strong> offers better XML (de)serialization due to <strong>GDSerializer</strong>&#8217;s highly extendable design.</p>
+
+<p>These features make <strong>Modot</strong> one of the few libraries of its kind available for <strong>Godot</strong>, and over time it grew to become my biggest project so far, with over 50 stars on <strong>GitHub</strong> and hundreds of downloads on <strong>NuGet</strong>.</p>
+</div>
+</main>
+<footer class='margin-vertical-small'><div class='flex row justify'><div class='weight-light fontsize-small color-venus'>Made using <a class='decor-underline-hover color-dandelion-hover' href='https://github.com/Carnagion/jabberwock'>Jabberwock</a>
+& <a class='decor-underline-hover color-dandelion-hover' href='https://github.com/xvxx/hatter'>Hatter</a>
+</div>
+</div>
+</footer>
+</body>
+</html>
