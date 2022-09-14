@@ -12,11 +12,11 @@ fn generator() -> Result<(), String> {
         .copy("css/", "css/")
         .copy("js/", "js/");
 
-    let mut generator = Generator::source("in/")?;
+    let mut generator = Generator::source("hat/")?;
     generator.apply(copier)?
         .apply(MarkdownTranspiler::source("md/"))?
         .apply(TemplateTranspiler::source("tmpl/"))?
         .apply(TomlTranspiler::source("vars/"))?
         .apply(HatterTranspiler::new())?;
-    generator.destination("out/")
+    generator.destination("docs/")
 }
