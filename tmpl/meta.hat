@@ -9,7 +9,7 @@
 <meta @viewport content="width=device-width,initial-scale=1">
 <meta http-equiv="content-language" content="en">
 
-<base href="/carnagion.github.io/">
+<base href="/">
 
 if !empty?(args.stylesheets)
     for stylesheet in args.stylesheets
