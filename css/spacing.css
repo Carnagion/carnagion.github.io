@@ -1,16 +1,49 @@
+/* Gap variables */
+:root {
+    --gap-tiny: 1rem;
+}
+
+/* Margin variables */
 :root {
     --margin-none: 0;
-    --margin-tiny: 1.5rem;
-    --margin-small: 3.2rem;
-    --margin-large: 10rem;
+    --margin-tiny: 1rem;
+    --margin-small: 2rem;
+    --margin-large: 5rem;
 }
 
+/* Padding variables */
 :root {
-    --pad-tiny: 1rem;
+    --pad-tiny: 0.5rem;
 }
 
-:root {
-    --gap-tiny: 1.5rem;
+@media screen and (min-width: 768px) {
+    :root {
+        --gap-tiny: 1.25rem;
+    }
+    :root {
+        --margin-none: 0;
+        --margin-tiny: 1.25rem;
+        --margin-small: 2.5rem;
+        --margin-large: 7.5rem;
+    }
+    :root {
+        --pad-tiny: 0.75rem;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    :root {
+        --gap-tiny: 1.5rem;
+    }
+    :root {
+        --margin-none: 0;
+        --margin-tiny: 1.5rem;
+        --margin-small: 3.2rem;
+        --margin-large: 10rem;
+    }
+    :root {
+        --pad-tiny: 1rem;
+    }
 }
 
 /* Tiny gap */
