@@ -15,4 +15,4 @@ The current implementation is quite functional in style, making heavy use of C#'
 The mods themselves can contain XML data, C# assemblies, and XML patches, all of which are loaded at runtime and executed (in the case of assemblies and patches).
 This is very similar to **RimWorld**'s mods, though **Modot** offers better XML (de)serialization due to **GDSerializer**'s highly extendable design.
 
-These features make **Modot** one of the few libraries of its kind available for **Godot**, and over time it grew to become my biggest project so far, with over 50 stars on **GitHub** and hundreds of downloads on **NuGet**.
+These features make **Modot** one of the few libraries of its kind available for **Godot**, and over time it grew to become my biggest project so far, with over 50 stars on GitHub and hundreds of downloads on NuGet.
