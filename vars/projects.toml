@@ -3,7 +3,6 @@ title = "Projects - Indraneel Mahendrakumar"
 description = "Projects."
 keywords = "portfolio, projects"
 stylesheets = ["borders", "colors", "flex", "markdown", "spacing", "text"]
-scripts = ["equalize"]
 
 [[projects]]
 title = "Jabberwock"
