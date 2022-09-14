@@ -1,0 +1,5 @@
+[meta]
+title = "Haskell-Matrices - Indraneel Mahendrakumar"
+description = "Project: Haskell-Matrices."
+keywords = "portfolio, project"
+stylesheets = ["colors", "flex", "markdown", "sizing", "spacing", "text"]

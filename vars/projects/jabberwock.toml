@@ -1,0 +1,5 @@
+[meta]
+title = "Jabberwock - Indraneel Mahendrakumar"
+description = "Project: Jabberwock."
+keywords = "portfolio, project"
+stylesheets = ["colors", "flex", "markdown", "sizing", "spacing", "text"]

@@ -1,0 +1,46 @@
+[meta]
+title = "Projects - Indraneel Mahendrakumar"
+description = "Projects."
+keywords = "portfolio, projects"
+stylesheets = ["borders", "colors", "flex", "markdown", "spacing", "text"]
+scripts = ["equalize"]
+
+[[projects]]
+title = "Jabberwock"
+link = "jabberwock"
+github = "https://github.com/Carnagion/jabberwock"
+
+[[projects]]
+title = "Modot"
+link = "modot"
+github = "https://github.com/Carnagion/Modot"
+
+[[projects]]
+title = "GDSerializer"
+link = "gdserializer"
+github = "https://github.com/Carnagion/GDSerializer"
+
+[[projects]]
+title = "Haskell-Matrices"
+link = "matrices"
+github = "https://github.com/Carnagion/Haskell-Matrices"
+
+[[projects]]
+title = "MoreLinq"
+link = "linq"
+github = "https://github.com/Carnagion/MoreLinq"
+
+[[projects]]
+title = "IsleWard Addon Settings Framework"
+link = "addonsettings"
+github = "https://github.com/Carnagion/IsleWard-AddonSettingsFramework"
+
+[[projects]]
+title = "Advent of Code"
+link = "advent"
+github = "https://github.com/Carnagion/AdventOfCode"
+
+[[projects]]
+title = "Improved Insectoids"
+link = "insectoids"
+github = "https://github.com/Carnagion/ImprovedInsectoids"

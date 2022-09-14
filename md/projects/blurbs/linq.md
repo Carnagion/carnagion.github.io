@@ -1,0 +1,1 @@
+A collection of **C#** extension methods for [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq).

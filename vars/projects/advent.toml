@@ -1,0 +1,5 @@
+[meta]
+title = "Advent of Code - Indraneel Mahendrakumar"
+description = "Project: Advent of Code solutions."
+keywords = "portfolio, project"
+stylesheets = ["colors", "flex", "markdown", "sizing", "spacing", "text"]

@@ -1,0 +1,1 @@
+A modular static site generator written in **Rust**.

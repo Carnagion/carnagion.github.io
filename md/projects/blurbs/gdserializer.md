@@ -1,0 +1,1 @@
+An XML (de)serialization framework for [Godot](https://godotengine.org) applications.

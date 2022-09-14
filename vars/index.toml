@@ -1,0 +1,5 @@
+[meta]
+title = "Indraneel Mahendrakumar"
+description = "Portfolio website created using Jabberwock."
+keywords = "portfolio"
+stylesheets = ["colors", "flex", "markdown", "sizing", "spacing", "text"]

@@ -1,0 +1,20 @@
+<title> args.title
+
+<meta charset="utf-8">
+<meta @generator content="jabberwock">
+<meta @title content=args.title>
+<meta @description content=args.description>
+<meta @keywords content=args.keywords>
+<meta @author content="Indraneel Mahendrakumar">
+<meta @viewport content="width=device-width,initial-scale=1">
+<meta http-equiv="content-language" content="en">
+
+<base href="/carnagion.github.io/">
+
+if !empty?(args.stylesheets)
+    for stylesheet in args.stylesheets
+        <link :"text/css" href="css/{stylesheet}.css" rel="stylesheet">
+
+if !empty?(args.scripts)
+    for script in args.scripts
+        <script :"text/javascript" src="js/{script}.js" defer>

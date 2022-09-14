@@ -1,0 +1,5 @@
+<p>
+    <a .align-vertical-middle .decor-none href=args.link>
+        <svg .align-vertical-middle .height-tiny.width-tiny viewBox=args.svg.size xmlns="http://www.w3.org/2000/svg">
+            <path .fill-pampas d=args.svg.path>
+    <a .align-vertical-middle .decor-dotted.decolor-dandelion .color-dandelion href=args.link> if empty?(args.display) then print(args.link) else print(args.display)

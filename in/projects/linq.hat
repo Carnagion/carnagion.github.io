@@ -1,0 +1,2 @@
+args-linq := load("projects/linq")
+include("page", { meta: args-linq.meta, markdown: content("projects/linq") })

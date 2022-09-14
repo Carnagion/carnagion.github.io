@@ -1,0 +1,5 @@
+[meta]
+title = "IsleWard Addon Settings Framework - Indraneel Mahendrakumar"
+description = "Project: IsleWard Addon Settings Framework."
+keywords = "portfolio, project"
+stylesheets = ["colors", "flex", "markdown", "sizing", "spacing", "text"]
