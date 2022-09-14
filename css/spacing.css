@@ -13,7 +13,7 @@
 
 /* Padding variables */
 :root {
-    --pad-tiny: 0.5rem;
+    --pad-tiny: 1rem;
 }
 
 @media screen and (min-width: 768px) {
@@ -27,7 +27,7 @@
         --margin-large: 7.5rem;
     }
     :root {
-        --pad-tiny: 0.75rem;
+        --pad-tiny: 1rem;
     }
 }
 
