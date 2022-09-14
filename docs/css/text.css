@@ -1,13 +1,16 @@
+/* Text decoration variables*/
 :root {
     --decor-thick: 0.15rem;
 }
 
+/* Font size variables */
 :root {
     --fontsize-tiny: 0.75rem;
     --fontsize-small: 0.9rem;
     --fontsize-medium: 1.10rem;
 }
 
+/* Font weight variables */
 :root {
     --weight-light: 300;
     --weight-semibold: 600;

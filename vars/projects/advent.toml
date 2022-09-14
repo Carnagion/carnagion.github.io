@@ -2,4 +2,23 @@
 title = "Advent of Code - Indraneel Mahendrakumar"
 description = "Project: Advent of Code solutions."
 keywords = "portfolio, project"
-stylesheets = ["colors", "flex", "markdown", "sizing", "spacing", "text"]
+
+[[meta.stylesheets]]
+link = "colors"
+defer = true
+
+[[meta.stylesheets]]
+link = "flex"
+
+[[meta.stylesheets]]
+link = "markdown"
+defer = true
+
+[[meta.stylesheets]]
+link = "sizing"
+
+[[meta.stylesheets]]
+link = "spacing"
+
+[[meta.stylesheets]]
+link = "text"

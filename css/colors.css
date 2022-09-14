@@ -1,3 +1,4 @@
+/* Colour variables */
 :root {
     --color-balticsea: #2d2a2e;
     --color-dandelion: #ffd866;
@@ -5,6 +6,17 @@
     --color-silver: #c1c0c0;
     --color-thunder: #221f22;
     --color-venus: #939293;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --color-balticsea: #f3ead3;
+        --color-dandelion: #3c8aa7;
+        --color-pampas: #2c292d;
+        --color-silver: #2c292d;
+        --color-thunder: #fbf5e8;
+        --color-venus: #2c292d;
+    }
 }
 
 /* Baltic sea background colour */

@@ -13,7 +13,12 @@
 
 if !empty?(args.stylesheets)
     for stylesheet in args.stylesheets
-        <link :"text/css" href="css/{stylesheet}.css" rel="stylesheet">
+        if stylesheet.defer
+            <link href="css/{stylesheet.link}.css" as="style" rel="preload" onload='this.onload = null; this.rel = "stylesheet"'>
+            <noscript>
+                <link href="css/{stylesheet.link}.css" rel="stylesheet">
+        else
+            <link href="css/{stylesheet.link}.css" rel="stylesheet">
 
 if !empty?(args.scripts)
     for script in args.scripts

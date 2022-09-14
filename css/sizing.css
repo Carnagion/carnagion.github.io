@@ -1,8 +1,10 @@
+/* Height variables */
 :root {
     --height-tiny: 2rem;
     --height-screen: 100vh;
 }
 
+/* Width variables */
 :root {
     --width-tiny: 2rem;
 }

@@ -1,6 +1,6 @@
 # Jabberwock
 
-*September 2022 - Present* **·** [GitHub](https://github.com/Carnagion/jabberwock)
+*September 2022 - Present* **·** [GitHub](https://github.com/Carnagion/jabberwock) **·** [Crate](https://crates.io/crates/jabberwock)
 
 **Jabberwock** is a static site generator (SSG) I built around the time I wanted to make a website for myself.
 
