@@ -7,8 +7,8 @@
 :root {
     --margin-none: 0;
     --margin-tiny: 1rem;
-    --margin-small: 2rem;
-    --margin-large: 4rem;
+    --margin-small: 1.2rem;
+    --margin-large: 2rem;
 }
 
 /* Padding variables */
