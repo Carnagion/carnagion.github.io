@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         include("meta", args.meta)
-    <body .flex.col .height-screen .margin-vertical-none.margin-horizontal-large .font-segoe .bgcolor-thunder>
+    <body .flex.col .height-min-screen .margin-vertical-none.margin-horizontal-large .font-segoe .bgcolor-thunder>
         include("header", load("header"))
         <main .grow>
             <div .markdown>
