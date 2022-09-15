@@ -1,5 +1,5 @@
 <header .margin-vertical-small>
-    <nav .flex.row.justify .fontsize-medium>
+    <nav .flex.row.justify.wrap .fontsize-medium>
         <div .weight-semibold>
             <a .decor-underline-hover.decor-thick .color-pampas.decolor-dandelion href="index.html" rel="me"> "Indraneel Mahendrakumar"
         <div .flex.row .gap-tiny .weight-semibold>
