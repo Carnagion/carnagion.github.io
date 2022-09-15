@@ -14,9 +14,9 @@
     height: var(--height-tiny);
 }
 
-/* 100% screen height */
-.height-screen {
-    height: var(--height-screen);
+/* Minimum 100% screen height */
+.height-min-screen {
+    min-height: var(--height-screen);
 }
 
 /* Tiny width */
