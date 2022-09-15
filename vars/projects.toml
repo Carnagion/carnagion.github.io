@@ -19,6 +19,9 @@ link = "markdown"
 defer = true
 
 [[meta.stylesheets]]
+link = "sizing"
+
+[[meta.stylesheets]]
 link = "spacing"
 
 [[meta.stylesheets]]
