@@ -1,0 +1,24 @@
+[meta]
+title = "Birthbot - Indraneel Mahendrakumar"
+description = "Indraneel Mahendrakumar - Birthbot"
+keywords = "portfolio, project"
+
+[[meta.stylesheets]]
+link = "colors"
+defer = true
+
+[[meta.stylesheets]]
+link = "flex"
+
+[[meta.stylesheets]]
+link = "markdown"
+defer = true
+
+[[meta.stylesheets]]
+link = "sizing"
+
+[[meta.stylesheets]]
+link = "spacing"
+
+[[meta.stylesheets]]
+link = "text"

@@ -28,6 +28,11 @@ link = "spacing"
 link = "text"
 
 [[projects]]
+title = "Birthbot"
+link = "birthbot"
+github = "https://github.com/Carnagion/birthbot"
+
+[[projects]]
 title = "Jabberwock"
 link = "jabberwock"
 github = "https://github.com/Carnagion/jabberwock"
