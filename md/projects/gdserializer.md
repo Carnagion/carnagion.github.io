@@ -11,4 +11,5 @@ Other serialization libraries required the types to mark themselves as serializa
 With **GDSerializer**, I therefore had to take a different approach, relying heavily on [reflection](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/reflection) to serialize all types.
 Over time, I made it more abstracted and extendable - **GDSerializer** can be extended by adding custom serializers for any type, which are used instead of the default serialization algorithm when possible.
 
-Later, I also developed [Modot](https://github.com/Carnagion/Modot) with its help, for which XML serialization was highly necessary. **GDSerializer** is currently my second-biggest **Godot** library.
+Later, I also developed [Modot](https://github.com/Carnagion/Modot) with its help, for which XML serialization was highly necessary.
+**GDSerializer** is currently my second-biggest **Godot** library.
