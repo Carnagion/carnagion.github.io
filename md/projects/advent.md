@@ -9,3 +9,4 @@ The problems each require different ways of approaching them, and the exposure t
 
 These are the years I have taken part in, along with the language(s) I used for them:
 - **2021**: C#
+- **2022**: Haskell, Rust, Lean
