@@ -11,7 +11,8 @@ That was when I stumbled across [Hatter](https://github.com/xvxx/hatter), a rath
 I liked it almost instantly, despite the lack of certain quality-of-life features such as editor plugins.
 
 It took me a few days to come up with a working SSG, but more importantly, it *did* work, and the generation process was blazing fast plus memory-safe thanks to Rust.
-After that, the project went through two full rewrites and a name change - I had originally intended to call it **Raven**, but later changed it when I found that there was another (unrelated) library with the same name. The current name is a reference to *Alice's Adventures in Wonderland*, keeping in theme with **Hatter**'s name.
+After that, the project went through two full rewrites and a name change - I had originally intended to call it **Raven**, but later changed it when I found that there was another (unrelated) library with the same name.
+The current name is a reference to *Alice's Adventures in Wonderland*, keeping in theme with **Hatter**'s name.
 
 **Jabberwock** also takes inspiration from [Metalsmith](https://metalsmith.io), a JavaScript-based SSG with an emphasis on modularity.
 The modular aspect of **Jabberwock** also allows me to add or remove new features with minimal effort.
