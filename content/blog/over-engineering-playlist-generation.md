@@ -1,7 +1,7 @@
 +++
 title = "Over-Engineering Playlist Generation"
 description = "Generating playlists by solving the knapsack problem"
-status = { published = "2024-11-30 12:00[Europe/London]" }
+status = { published = "2024-11-20 18:12[Europe/London]" }
 +++
 
 Imagine you want a power metal playlist for your hour-long gym session. Or maybe something relaxing for your daily commute. Or some pirate metal [^pirate-metal] to blast as you play drinking games with your friends. Or... whatever, you get the idea. In any case, you want some kind of playlist.
