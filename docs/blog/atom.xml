@@ -5,7 +5,7 @@
     <title>Indraneel Mahendrakumar's blog</title>
     
     
-        <updated>2024-11-20T18:12:00+00:00[Europe/London]</updated>
+        <updated>2024-11-20T19:12:00+00:00[Europe/London]</updated>
     
 
     <author>
@@ -30,8 +30,8 @@
                 <published>2024-11-20T18:12:00+00:00[Europe/London]</published>
                 <updated>
                     
-                            2024-11-20T18:12:00+00:00[Europe/London]
-                        
+                            2024-11-20T19:12:00+00:00[Europe/London]
+                    
                 </updated>
 
                 <author>
@@ -70,7 +70,7 @@
 &lt;h2&gt;&lt;a href=&quot;#solving-the-problem&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot; id=&quot;solving-the-problem&quot;&gt;&lt;/a&gt;Solving the problem&lt;/h2&gt;
 &lt;p&gt;It turns out that the knapsack problem is quite hard to solve. In fact, it’s &lt;a href=&quot;https://en.wikipedia.org/wiki/NP-completeness&quot;&gt;NP-complete&lt;/a&gt;, making the playlist generation problem NP-complete too (as it is equivalent to the knapsack problem).&lt;/p&gt;
 &lt;p&gt;It is also, however, one of the most well-researched problems in the field of optimisation, so there are plenty of established approaches to solving it.&lt;/p&gt;
-&lt;p&gt;As an example &lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;#fn-incomplete-example&quot; id=&quot;fnref-incomplete-example&quot; data-footnote-ref&gt;2&lt;/a&gt;&lt;/sup&gt;, we can implement an &lt;a href=&quot;https://en.wikipedia.org/wiki/Iterated_local_search&quot;&gt;Iterated Local Search (ILS)&lt;/a&gt; metaheuristic. Given the following types for representing problem data and solutions:&lt;/p&gt;
+&lt;p&gt;As an example &lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;#fn-incomplete-example&quot; id=&quot;fnref-incomplete-example&quot; data-footnote-ref&gt;2&lt;/a&gt;&lt;/sup&gt;, we can implement an &lt;a href=&quot;https://en.wikipedia.org/wiki/Iterated_local_search&quot;&gt;Iterated Local Search (ILS)&lt;/a&gt; metaheuristic using my experimental Rust library &lt;a href=&quot;https://github.com/Carnagion/heur&quot;&gt;&lt;code&gt;heur&lt;/code&gt;&lt;/a&gt;. Given the following types for representing problem data and solutions:&lt;/p&gt;
 &lt;pre style=&quot;background-color: #282828; color: #EBDBB2;&quot;&gt;&lt;code&gt;&lt;span style=&quot;color: #FB4934; background-color: #282828;&quot;&gt;struct&lt;/span&gt; &lt;span style=&quot;color: #FABD2F; background-color: #282828;&quot;&gt;Problem&lt;/span&gt; &lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;{&lt;/span&gt;
     max_duration&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #FABD2F; background-color: #282828;&quot;&gt;Duration&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;,&lt;/span&gt;
     available_songs&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #FABD2F; background-color: #282828;&quot;&gt;Vec&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&quot;color: #FABD2F; background-color: #282828;&quot;&gt;Song&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;,&lt;/span&gt;
@@ -107,7 +107,7 @@
     &lt;span style=&quot;color: #FABD2F; background-color: #282828;&quot;&gt;NotNan&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;::&lt;/span&gt;&lt;span style=&quot;color: #B8BB26; background-color: #282828;&quot;&gt;new&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;(&lt;/span&gt;cost&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #B8BB26; background-color: #282828;&quot;&gt;unwrap&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Finally, we can construct the metaheuristic by combining a few metaheuristic operators like so, and run it on a given problem instance to produce a solution:&lt;/p&gt;
+&lt;p&gt;And finally, we can construct the metaheuristic by combining a few metaheuristic operators like so, and run it on a given problem instance to produce a solution:&lt;/p&gt;
 &lt;pre style=&quot;background-color: #282828; color: #EBDBB2;&quot;&gt;&lt;code&gt;&lt;span style=&quot;color: #FB4934; background-color: #282828;&quot;&gt;let&lt;/span&gt; problem&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #FABD2F; background-color: #282828;&quot;&gt;Problem&lt;/span&gt; = &lt;span style=&quot;color: #928374; background-color: #282828;font-style: italic;&quot;&gt;&amp;#x2f;* ... *&amp;#x2f;&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;;&lt;/span&gt;
 
 &lt;span style=&quot;color: #FB4934; background-color: #282828;&quot;&gt;let&lt;/span&gt; flip_chance = &lt;span style=&quot;color: #FABD2F; background-color: #282828;&quot;&gt;Bernoulli&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;::&lt;/span&gt;&lt;span style=&quot;color: #B8BB26; background-color: #282828;&quot;&gt;new&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #D3869B; background-color: #282828;&quot;&gt;0.1&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #B8BB26; background-color: #282828;&quot;&gt;unwrap&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #FE8019; background-color: #282828;&quot;&gt;;&lt;/span&gt;

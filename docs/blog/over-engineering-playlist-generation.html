@@ -122,6 +122,9 @@
                         Published <time datetime="2024-11-20T18:12:00+00:00">20 November 2024</time>
 
                         
+                            
+                            (Updated <time datetime="2024-11-20T19:12:00+00:00">20 November 2024</time>)
+                        
                 
                 
                 <b>&middot;</b>
@@ -161,7 +164,7 @@
 <h2><a href="#solving-the-problem" aria-hidden="true" class="anchor" id="solving-the-problem"></a>Solving the problem</h2>
 <p>It turns out that the knapsack problem is quite hard to solve. In fact, it’s <a href="https://en.wikipedia.org/wiki/NP-completeness">NP-complete</a>, making the playlist generation problem NP-complete too (as it is equivalent to the knapsack problem).</p>
 <p>It is also, however, one of the most well-researched problems in the field of optimisation, so there are plenty of established approaches to solving it.</p>
-<p>As an example <sup class="footnote-ref"><a href="#fn-incomplete-example" id="fnref-incomplete-example" data-footnote-ref>2</a></sup>, we can implement an <a href="https://en.wikipedia.org/wiki/Iterated_local_search">Iterated Local Search (ILS)</a> metaheuristic. Given the following types for representing problem data and solutions:</p>
+<p>As an example <sup class="footnote-ref"><a href="#fn-incomplete-example" id="fnref-incomplete-example" data-footnote-ref>2</a></sup>, we can implement an <a href="https://en.wikipedia.org/wiki/Iterated_local_search">Iterated Local Search (ILS)</a> metaheuristic using my experimental Rust library <a href="https://github.com/Carnagion/heur"><code>heur</code></a>. Given the following types for representing problem data and solutions:</p>
 <pre style="background-color: #282828; color: #EBDBB2;"><code><span style="color: #FB4934; background-color: #282828;">struct</span> <span style="color: #FABD2F; background-color: #282828;">Problem</span> <span style="color: #FE8019; background-color: #282828;">{</span>
     max_duration<span style="color: #FE8019; background-color: #282828;">:</span> <span style="color: #FABD2F; background-color: #282828;">Duration</span><span style="color: #FE8019; background-color: #282828;">,</span>
     available_songs<span style="color: #FE8019; background-color: #282828;">:</span> <span style="color: #FABD2F; background-color: #282828;">Vec</span><span style="color: #FE8019; background-color: #282828;">&lt;</span><span style="color: #FABD2F; background-color: #282828;">Song</span><span style="color: #FE8019; background-color: #282828;">&gt;</span><span style="color: #FE8019; background-color: #282828;">,</span>
@@ -198,7 +201,7 @@
     <span style="color: #FABD2F; background-color: #282828;">NotNan</span><span style="color: #FE8019; background-color: #282828;">::</span><span style="color: #B8BB26; background-color: #282828;">new</span><span style="color: #FE8019; background-color: #282828;">(</span>cost<span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">unwrap</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #FE8019; background-color: #282828;">)</span>
 <span style="color: #FE8019; background-color: #282828;">}</span>
 </code></pre></code></pre>
-<p>Finally, we can construct the metaheuristic by combining a few metaheuristic operators like so, and run it on a given problem instance to produce a solution:</p>
+<p>And finally, we can construct the metaheuristic by combining a few metaheuristic operators like so, and run it on a given problem instance to produce a solution:</p>
 <pre style="background-color: #282828; color: #EBDBB2;"><code><span style="color: #FB4934; background-color: #282828;">let</span> problem<span style="color: #FE8019; background-color: #282828;">:</span> <span style="color: #FABD2F; background-color: #282828;">Problem</span> = <span style="color: #928374; background-color: #282828;font-style: italic;">&#x2f;* ... *&#x2f;</span><span style="color: #FE8019; background-color: #282828;">;</span>
 
 <span style="color: #FB4934; background-color: #282828;">let</span> flip_chance = <span style="color: #FABD2F; background-color: #282828;">Bernoulli</span><span style="color: #FE8019; background-color: #282828;">::</span><span style="color: #B8BB26; background-color: #282828;">new</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #D3869B; background-color: #282828;">0.1</span><span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">unwrap</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">;</span>
