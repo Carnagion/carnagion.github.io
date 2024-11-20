@@ -1,2 +1,0 @@
-args-birthbot := load("projects/birthbot")
-include("page", { meta: args-birthbot.meta, markdown: content("projects/birthbot") })

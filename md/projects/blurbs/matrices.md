@@ -1,1 +1,0 @@
-A small matrix library implemented in **Haskell**.

@@ -1,2 +1,0 @@
-args-index := load("index")
-include("page", { meta: args-index.meta, markdown: content("index") })

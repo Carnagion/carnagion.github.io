@@ -1,2 +1,0 @@
-args-lamb := load("projects/lamb")
-include("page", { meta: args-lamb.meta, markdown: content("projects/lamb") })

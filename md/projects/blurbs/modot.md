@@ -1,1 +1,0 @@
-A [RimWorld](https://rimworldgame.com)-inspired mod loader for [Godot](https://godotengine.org) games, featuring **C#** assembly loading and XML patching.

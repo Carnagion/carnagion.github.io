@@ -1,4 +1,0 @@
-<div .flex.row.wrap .gap-tiny>
-    for element in args
-        <div .grow .pad-horizontal-tiny.pad-vertical-tiny .border-round-tiny .bgcolor-balticsea>
-            print(element)

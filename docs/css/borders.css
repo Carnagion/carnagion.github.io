@@ -1,9 +1,0 @@
-/* Border radius variables */
-:root {
-    --border-radius-tiny: 1rem;
-}
-
-/* Tiny border radius */
-.border-round-tiny {
-    border-radius: var(--border-radius-tiny);
-}

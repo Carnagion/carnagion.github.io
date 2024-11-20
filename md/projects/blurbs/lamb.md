@@ -1,1 +1,0 @@
-An interpreter for the pure [untyped lambda calculus](https://en.wikipedia.org/wiki/Lambda_calculus), written in **Rust**.

@@ -1,6 +1,0 @@
-<a .decor-underline-hover.decor-thick.decolor-dandelion href="projects/{args.link}.html">
-    <h2 .color-pampas> args.title
-<div .markdown>
-    content("projects/blurbs/{args.link}")
-<p .fontsize-tiny .color-venus>
-    <a .decor-underline-hover .color-dandelion-hover href=args.github> args.github

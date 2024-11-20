@@ -1,2 +1,0 @@
-args-error := load("404")
-include("page", { meta: args-error.meta, markdown: content("404") })

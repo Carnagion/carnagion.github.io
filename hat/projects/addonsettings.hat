@@ -1,2 +1,0 @@
-args-addon := load("projects/addonsettings")
-include("page", { meta: args-addon.meta, markdown: content("projects/addonsettings") })

@@ -1,7 +1,0 @@
-<footer .margin-vertical-small>
-    <div .flex.row.justify>
-        <div .weight-light .fontsize-small .color-venus>
-            "Made using "
-            <a .decor-underline-hover .color-dandelion-hover href="https://github.com/Carnagion/jabberwock"> "Jabberwock"
-            "& "
-            <a .decor-underline-hover .color-dandelion-hover href="https://github.com/xvxx/hatter"> "Hatter"

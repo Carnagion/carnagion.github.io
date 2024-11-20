@@ -1,5 +1,0 @@
-args-contact := load("contact")
-display-contacts := []
-for contact in args-contact.contacts
-    push(display-contacts, include("contact", contact))
-include("page", { meta: args-contact.meta, markdown: content("contact"), additions: include("grid", display-contacts) })

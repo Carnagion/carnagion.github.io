@@ -1,2 +1,0 @@
-args-insectoids := load("projects/insectoids")
-include("page", { meta: args-insectoids.meta, markdown: content("projects/insectoids") })

@@ -1,2 +1,0 @@
-args-gdserializer := load("projects/gdserializer")
-include("page", { meta: args-gdserializer.meta, markdown: content("projects/gdserializer") })

@@ -1,1 +1,0 @@
-My solutions to the annual [Advent of Code](https://adventofcode.com) programming competitions, from 2021 onwards.

@@ -1,1 +1,0 @@
-A [Discord](https://discord.com/) bot to keep track of birthdays, written in **Rust**.

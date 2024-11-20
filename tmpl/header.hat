@@ -1,7 +1,0 @@
-<header .margin-vertical-small>
-    <nav .flex.row.justify .fontsize-medium>
-        <div .weight-semibold>
-            <a .decor-underline-hover.decor-thick .color-pampas.decolor-dandelion href="index.html" rel="me"> "Indraneel Mahendrakumar"
-        <div .flex.row.wrap .gap-tiny .weight-semibold>
-            for navpage in args.navpages
-                <a .decor-underline-hover.decor-thick .color-pampas.decolor-dandelion href=navpage.link rel="me"> navpage.title

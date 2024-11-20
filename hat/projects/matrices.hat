@@ -1,2 +1,0 @@
-args-matrices := load("projects/matrices")
-include("page", { meta: args-matrices.meta, markdown: content("projects/matrices") })

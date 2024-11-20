@@ -1,5 +1,0 @@
-args-projects := load("projects")
-display-projects := []
-for project in args-projects.projects
-    push(display-projects, include("project", project))
-include("page", { meta: args-projects.meta, markdown: content("projects"), additions: include("grid", display-projects) })
