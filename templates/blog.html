@@ -1,0 +1,44 @@
+{% extends "page.html" %}
+
+{%- block title -%} Blog | Indraneel Mahendrakumar {%- endblock title -%}
+{%- block description -%} My blog {%- endblock description -%}
+
+{% block content %}
+    <article>
+        <header>
+            <h1 class="mt:0">Blog</h1>
+            <p class="font-family:Gentium|Plus">
+                A place for my occasional ramblings about ideas and projects that I find interesting.
+            </p>
+            <hr>
+        </header>
+    
+        {% let md = fs::read_to_string("content/blog.md")? %}
+        {% let arena = Arena::new() %}
+        {{ Markdown::new(md, arena).to_html()?|safe }}
+    
+        <ul class="
+            list-style:none
+            pl:0
+        ">
+            {% for article in self.archive() %}
+                {% if let Status::Published { published, updated } = article.meta.status %}
+                    <li>
+                        <article>
+                            <h3>
+                                <a href="/blog/{{ slug::slugify(article.meta.title) }}">{{ article.meta.title }}</a>
+                            </h3>
+    
+                            <p>
+                                {% let datetime = published.strftime("%FT%T%.f%:z") %}
+                                <time datetime="{{ datetime }}" class="font-family:Gentium|Plus">{{ published.strftime("%d %B %Y") }}</time>
+                                <b>&middot;</b>
+                                {{ article.meta.description }}
+                            </p>
+                        </article>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </article>
+{% endblock content %}

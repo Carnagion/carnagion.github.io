@@ -1,0 +1,44 @@
+{% extends "page.html" %}
+
+{%- block title -%} {{ self.meta.title }} | Indraneel Mahendrakumar {%- endblock title -%}
+{%- block description -%} {{ self.meta.description }} {%- endblock description -%}
+
+{% block content %}
+    <article>
+        <header>
+            <h1 class="mt:0">{{ self.meta.title }}</h1>
+
+            <p class="font-family:Gentium|Plus">
+                {% match self.meta.status %}
+                    {% when Status::Draft %}
+                        Draft
+                    {% when Status::Published with { published, updated } %}
+                        {% let datetime = published.strftime("%FT%T%.f%:z") %}
+                        Published <time datetime="{{ datetime }}">{{ published.strftime("%d %B %Y") }}</time>
+
+                        {% if let Some(updated) = updated %}
+                            {% let datetime = updated.strftime("%FT%T%.f%:z") %}
+                            (Updated <time datetime="{{ datetime }}">{{ updated.strftime("%d %B %Y") }}</time>)
+                        {% endif %}
+                {% endmatch %}
+                
+                <b>&middot;</b>
+
+                {% let (fast, slow) = self.reading_time() %}
+                {% if fast == slow %}
+                    {% if fast == 1 %}
+                        1 minute
+                    {% else %}
+                        {{ fast }} minutes
+                    {% endif %}
+                {% else %}
+                    {{ fast }}&ndash;{{ slow }} minutes
+                {% endif %}
+            </p>
+            
+            <hr>
+        </header>
+
+        {{ self.md.to_html()?|safe }}
+    </article>
+{% endblock content %}

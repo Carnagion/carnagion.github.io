@@ -1,0 +1,20 @@
+{% extends "page.html" %}
+
+{%- block title -%} Indraneel Mahendrakumar {%- endblock title -%}
+{%- block description -%} About me {%- endblock description -%}
+
+{% block content %}
+    <article>
+        <header>
+            <h1 class="mt:0">Indraneel Mahendrakumar</h1>
+            <p class="font-family:Gentium|Plus">
+                I don't have anything interesting to put here, so have this cat instead: 🐈.
+            </p>
+            <hr>
+        </header>
+
+        {% let md = fs::read_to_string("content/index.md")? %}
+        {% let arena = Arena::new() %}
+        {{ Markdown::new(md, arena).to_html()?|safe }}
+    </article>
+{% endblock content %}

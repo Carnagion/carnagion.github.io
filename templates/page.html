@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    {# NOTE: I would separate this metadata into another file and `include` it if I could. Unfortunately,
+             it has blocks inside it, which wouldn't get overriden properly if I do that. #}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    
+        <title>
+            {%- block title -%} Indraneel Mahendrakumar {%- endblock title -%}
+        </title>
+    
+        <meta name="description" content="{%- block description -%} Indraneel Mahendrakumar's website {%- endblock description -%}">
+        <meta name="author" content="Indraneel Mahendrakumar">
+    
+        {% block meta -%}{%- endblock meta %}
+    
+        <!-- TODO: Remove runtime engine once Master CSS properly supports and documents static extraction -->
+        <link rel="preload" as="script" href="https://cdn.master.co/css-runtime@rc">
+        <script src="https://cdn.master.co/css-runtime@rc"></script>
+    
+        <!-- TODO: Self-host font files -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=Recursive:MONO@1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&display=swap" rel="stylesheet">
+    </head>
+
+    <!-- TODO: Pick a better math font -->
+    <body id="top" class="
+        grid
+        grid-template-cols:minmax(min-content,80ch)|min-content
+        align-items:start
+
+        box-sizing:border-box_*
+
+        m:0|auto
+        p:4x
+
+        max:screen-sm|auto
+
+        {hyphens:auto}
+        {hyphens:none;white-space:pre-wrap}_:where(code,pre)
+    ">
+        <header class="
+            grid-row:1
+            grid-col:2
+
+            p:4x
+
+            sticky
+            top:4x
+        ">
+            <img src="/duck.png" alt="A photo of a giant rubber duck." title="A photo of a giant rubber duck." class="
+                square
+                size:100%|100%
+
+                b:1px|solid|black
+                shadow:1x|1x|black
+            ">
+            <nav>
+                <h3>
+                    <a href="/" class="
+                        fg:black
+                        font:semibold
+                        font-family:Literata
+                        text-decoration:none
+                    ">
+                        Indraneel Mahendrakumar
+                    </a>
+                </h3>
+                <ul class="
+                    list-style:none
+
+                    pl:0
+
+                    {fg:blue-90;font-family:Literata}_a
+                    text-decoration:none_a
+                    text-decoration:underline_a:hover
+                ">
+                    <li>
+                        <a href="/">About</a>
+                    </li>
+                    <li>
+                        <a href="/blog">Blog</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="
+            grid-row:1
+            grid-col:1
+
+            p:4x
+
+            fg:black
+            font-family:Literata
+            font-family:Recursive_code
+            {font:1.2em;font-family:Cambria|Math}_math
+            font-family:Gentium|Plus_section.footnotes
+            font:semibold_:where(h1,h2,h3,h4,h5,h6)
+            {font:3em;font:bold}_header>h1
+            fg:blue-90_a
+            text-decoration:none_a
+            text-decoration:underline_a:hover
+            
+            {b:none;bg:gray-20;h:1px;my:8x}_hr
+
+            {b:1px|solid|black;shadow:1x|1x|black;p:4x}_pre
+
+            {mb:0;pl:2ch}_section.footnotes>ol
+            {font:1.2em;font-family:Cambria}_a.footnote-backref
+            
+            {content:'§';fg:gray-50;abs;w:2ch;ml:-2ch}_:where(h1,h2,h3,h4,h5,h6):hover>a.anchor::before
+            fg:blue-90_:where(h1,h2,h3,h4,h5,h6)>a.anchor:hover::before
+        ">
+            {% block content %}{% endblock content %}
+        </main>
+        
+        <footer class="
+            grid-row:2
+            grid-col:1
+
+            p:4x
+        ">
+            <nav>
+                <ul class="
+                    list-style:none
+                    inline-block_li
+
+                    pl:0
+
+                    flex
+                    justify-content:space-between
+                    
+                    fg:blue-90_a
+                    text-decoration:none_a
+                    text-decoration:underline_a:hover
+                ">
+                    <li class="font-family:Literata">
+                        <a href="#top">Back to top &uarr;</a>
+                    </li>
+                    <li class="
+                        fg:black
+                        font-family:Gentium|Plus
+                    ">
+                        &copy; 2024
+                        <b>&middot;</b>
+                        Content licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA</a>
+                        <b>&middot;</b>
+                        <a href="https://github.com/Carnagion/carnagion.github.io">Code</a>
+                    </li>
+                </ul>
+            </nav>
+        </footer>
+    </body>
+</html>
