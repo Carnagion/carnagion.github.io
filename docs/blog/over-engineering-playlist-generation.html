@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    
+        <title>Over-Engineering Playlist Generation | Indraneel Mahendrakumar</title>
+    
+        <meta name="description" content="Generating playlists by solving the knapsack problem">
+        <meta name="author" content="Indraneel Mahendrakumar">
+    
+        
+    
+        <!-- TODO: Remove runtime engine once Master CSS properly supports and documents static extraction -->
+        <link rel="preload" as="script" href="https://cdn.master.co/css-runtime@rc">
+        <script src="https://cdn.master.co/css-runtime@rc"></script>
+    
+        <!-- TODO: Self-host font files -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=Recursive:MONO@1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&display=swap" rel="stylesheet">
+    </head>
+
+    <!-- TODO: Pick a better math font -->
+    <body id="top" class="
+        grid
+        grid-template-cols:minmax(min-content,80ch)|min-content
+        align-items:start
+
+        box-sizing:border-box_*
+
+        m:0|auto
+        p:4x
+
+        max:screen-sm|auto
+
+        {hyphens:auto}
+        {hyphens:none;white-space:pre-wrap}_:where(code,pre)
+    ">
+        <header class="
+            grid-row:1
+            grid-col:2
+
+            p:4x
+
+            sticky
+            top:4x
+        ">
+            <img src="/duck.png" alt="A photo of a giant rubber duck." title="A photo of a giant rubber duck." class="
+                square
+                size:100%|100%
+
+                b:1px|solid|black
+                shadow:1x|1x|black
+            ">
+            <nav>
+                <h3>
+                    <a href="/" class="
+                        fg:black
+                        font:semibold
+                        font-family:Literata
+                        text-decoration:none
+                    ">
+                        Indraneel Mahendrakumar
+                    </a>
+                </h3>
+                <ul class="
+                    list-style:none
+
+                    pl:0
+
+                    {fg:blue-90;font-family:Literata}_a
+                    text-decoration:none_a
+                    text-decoration:underline_a:hover
+                ">
+                    <li>
+                        <a href="/">About</a>
+                    </li>
+                    <li>
+                        <a href="/blog">Blog</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="
+            grid-row:1
+            grid-col:1
+
+            p:4x
+
+            fg:black
+            font-family:Literata
+            font-family:Recursive_code
+            {font:1.2em;font-family:Cambria|Math}_math
+            font-family:Gentium|Plus_section.footnotes
+            font:semibold_:where(h1,h2,h3,h4,h5,h6)
+            {font:3em;font:bold}_header>h1
+            fg:blue-90_a
+            text-decoration:none_a
+            text-decoration:underline_a:hover
+            
+            {b:none;bg:gray-20;h:1px;my:8x}_hr
+
+            {b:1px|solid|black;shadow:1x|1x|black;p:4x}_pre
+
+            {mb:0;pl:2ch}_section.footnotes>ol
+            {font:1.2em;font-family:Cambria}_a.footnote-backref
+            
+            {content:'§';fg:gray-50;abs;w:2ch;ml:-2ch}_:where(h1,h2,h3,h4,h5,h6):hover>a.anchor::before
+            fg:blue-90_:where(h1,h2,h3,h4,h5,h6)>a.anchor:hover::before
+        ">
+            
+    <article>
+        <header>
+            <h1 class="mt:0">Over-Engineering Playlist Generation</h1>
+
+            <p class="font-family:Gentium|Plus">
+                
+                        
+                        Published <time datetime="2024-11-30T12:00:00+00:00">30 November 2024</time>
+
+                        
+                
+                
+                <b>&middot;</b>
+
+                
+                
+                    6&ndash;9 minutes
+                
+            </p>
+            
+            <hr>
+        </header>
+
+        <p>Imagine you want a power metal playlist for your hour-long gym session. Or maybe something relaxing for your daily commute. Or some pirate metal <sup class="footnote-ref"><a href="#fn-pirate-metal" id="fnref-pirate-metal" data-footnote-ref>1</a></sup> to blast as you play drinking games with your friends. Or… whatever, you get the idea. In any case, you want some kind of playlist.</p>
+<p>Now, the normal and totally sane way of doing this would be to go through your music library and add the songs you want until you’re satisfied. Maybe you even do this on a regular basis.</p>
+<p>But there’s no <em>fun</em> in doing that — it requires <em>time</em> and <em>effort</em> to pick the best songs. Plus, you might end up with a playlist that’s longer than you want it to be, and then you’d potentially have to stop a song mid-way! Can’t have that.</p>
+<p>So instead, you can write a program to automatically <em>generate</em> playlists in the most optimal way possible, such that you never get a playlist that’s longer than you want, and only the most relevant songs — according to some given metric — are included in it.</p>
+<p>How does one do this, you ask? By solving the knapsack problem, of course.</p>
+<h2><a href="#the-knapsack-problem" aria-hidden="true" class="anchor" id="the-knapsack-problem"></a>The knapsack problem</h2>
+<p>The knapsack problem is a very common problem in the field of <a href="https://en.wikipedia.org/wiki/Combinatorial_optimization">combinatorial optimisation</a>. From <a href="https://en.wikipedia.org/wiki/Knapsack_problem">Wikipedia</a>:</p>
+<blockquote>
+<p><em>Given a set of items, each with a weight and a value, determine which items to include in the collection so that the total weight is less than or equal to a given limit and the total value is as large as possible.</em></p>
+</blockquote>
+<p>I’m specifically referring to the variant known as the <em>0-1 knapsack problem</em>, wherein each item can only be included or excluded (you cannot, for example, include the same item multiple times, or include a fractional amount of an item).</p>
+<h3><a href="#okay-but-what-does-this-have-to-do-with-generating-playlists" aria-hidden="true" class="anchor" id="okay-but-what-does-this-have-to-do-with-generating-playlists"></a>Okay, but what does this have to do with generating playlists?</h3>
+<p>You might think that generating playlists is quite simple, and that there’s no need for all this fancy mathematical optimisation nonsense.</p>
+<p>And that’s true — kind of. It’s easy if you just want to shove all relevant songs into one big playlist.</p>
+<p>But things get more complicated when you add a duration limit while wanting to maximise relevance. You can’t, for example, just reverse-sort songs by relevance and then keep taking them until you hit the duration limit, because there might be a different combination that has a greater total relevance and is still under the duration limit.</p>
+<p>If you look closely, however, this is actually just the 0-1 knapsack problem in disguise. It’s easier to see if we rephrase the earlier problem statement like so:</p>
+<blockquote>
+<p><em>Given a set of songs, each with a duration and a relevance, determine which songs to include in the playlist so that the total duration is less than or equal to a given limit and the total relevance is as large as possible.</em></p>
+</blockquote>
+<p>This description exactly matches that of the knapsack problem!</p>
+<p>More specifically, the playlist’s duration limit corresponds to the knapsack’s weight limit, and a song’s duration corresponds to an item’s weight.</p>
+<p>What about item value then? Well, you may have noticed that I mentioned “relevance” a couple times. What I mean by this is a quantification of how desirable a song is for the playlist you want to generate. This corresponds to an item’s value in the original knapsack problem description.</p>
+<p>For example, if you wanted a playlist full of relaxing songs, then a song’s relevance is a measure of how relaxing it is. Or if you wanted a playlist of songs you hadn’t listened to in a long time, then relevance is a measure of how long ago you listened to the song.</p>
+<h2><a href="#solving-the-problem" aria-hidden="true" class="anchor" id="solving-the-problem"></a>Solving the problem</h2>
+<p>It turns out that the knapsack problem is quite hard to solve. In fact, it’s <a href="https://en.wikipedia.org/wiki/NP-completeness">NP-complete</a>, making the playlist generation problem NP-complete too (as it is equivalent to the knapsack problem).</p>
+<p>It is also, however, one of the most well-researched problems in the field of optimisation, so there are plenty of established approaches to solving it.</p>
+<p>As an example <sup class="footnote-ref"><a href="#fn-incomplete-example" id="fnref-incomplete-example" data-footnote-ref>2</a></sup>, we can implement an <a href="https://en.wikipedia.org/wiki/Iterated_local_search">Iterated Local Search (ILS)</a> metaheuristic. Given the following types for representing problem data and solutions:</p>
+<pre style="background-color: #282828; color: #EBDBB2;"><code><span style="color: #FB4934; background-color: #282828;">struct</span> <span style="color: #FABD2F; background-color: #282828;">Problem</span> <span style="color: #FE8019; background-color: #282828;">{</span>
+    max_duration<span style="color: #FE8019; background-color: #282828;">:</span> <span style="color: #FABD2F; background-color: #282828;">Duration</span><span style="color: #FE8019; background-color: #282828;">,</span>
+    available_songs<span style="color: #FE8019; background-color: #282828;">:</span> <span style="color: #FABD2F; background-color: #282828;">Vec</span><span style="color: #FE8019; background-color: #282828;">&lt;</span><span style="color: #FABD2F; background-color: #282828;">Song</span><span style="color: #FE8019; background-color: #282828;">&gt;</span><span style="color: #FE8019; background-color: #282828;">,</span>
+<span style="color: #FE8019; background-color: #282828;">}</span>
+
+<span style="color: #928374; background-color: #282828;font-style: italic;">&#x2f;&#x2f; Each `bool` represents whether the song at the given index in the `Problem` is included or not.</span>
+<span style="color: #FB4934; background-color: #282828;">type</span> <span style="color: #FABD2F; background-color: #282828;">Solution</span> = <span style="color: #FABD2F; background-color: #282828;">Vec</span><span style="color: #FE8019; background-color: #282828;">&lt;</span><span style="color: #FABD2F; background-color: #282828;">bool</span><span style="color: #FE8019; background-color: #282828;">&gt;</span><span style="color: #FE8019; background-color: #282828;">;</span>
+</code></pre></code></pre>
+<p>We can define an <em>evaluation function</em> (also known as a cost function) for quantifying how good a given solution is:</p>
+<pre style="background-color: #282828; color: #EBDBB2;"><code><span style="color: #FB4934; background-color: #282828;">fn</span> <span style="color: #B8BB26; background-color: #282828;">cost</span><span style="color: #FE8019; background-color: #282828;">(</span>
+    <span style="color: #83A598; background-color: #282828;font-style: italic;">solution</span><span style="color: #FE8019; background-color: #282828;">:</span> <span style="color: #D3869B; background-color: #282828;">&amp;</span><span style="color: #FABD2F; background-color: #282828;">Solution</span><span style="color: #FE8019; background-color: #282828;">,</span>
+    <span style="color: #83A598; background-color: #282828;font-style: italic;">problem</span><span style="color: #FE8019; background-color: #282828;">:</span> <span style="color: #D3869B; background-color: #282828;">&amp;</span><span style="color: #FABD2F; background-color: #282828;">Problem</span><span style="color: #FE8019; background-color: #282828;">,</span>
+<span style="color: #FE8019; background-color: #282828;">)</span> -&gt; <span style="color: #FABD2F; background-color: #282828;">NotNan</span><span style="color: #FE8019; background-color: #282828;">&lt;</span><span style="color: #FABD2F; background-color: #282828;">f64</span><span style="color: #FE8019; background-color: #282828;">&gt;</span> <span style="color: #FE8019; background-color: #282828;">{</span>
+    <span style="color: #928374; background-color: #282828;font-style: italic;">&#x2f;&#x2f; Calculate the sum of relevances and the total duration for the playlist.</span>
+    <span style="color: #FB4934; background-color: #282828;">let</span> <span style="color: #FE8019; background-color: #282828;">(</span>relevance<span style="color: #FE8019; background-color: #282828;">,</span> duration<span style="color: #FE8019; background-color: #282828;">)</span> = solution
+        <span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">iter</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #FE8019; background-color: #282828;">)</span>
+        <span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">copied</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #FE8019; background-color: #282828;">)</span>
+        <span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">zip</span><span style="color: #FE8019; background-color: #282828;">(</span>problem<span style="color: #FE8019; background-color: #282828;">.</span>available_songs<span style="color: #FE8019; background-color: #282828;">)</span>
+        <span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">filter_map</span><span style="color: #FE8019; background-color: #282828;">(</span>|<span style="color: #FE8019; background-color: #282828;">(</span>included<span style="color: #FE8019; background-color: #282828;">,</span> song<span style="color: #FE8019; background-color: #282828;">)</span>| <span style="color: #FE8019; background-color: #282828;">{</span>
+            included<span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">then_some</span><span style="color: #FE8019; background-color: #282828;">(</span>song<span style="color: #FE8019; background-color: #282828;">)</span>
+        <span style="color: #FE8019; background-color: #282828;">}</span><span style="color: #FE8019; background-color: #282828;">)</span>
+        <span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">fold</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #D3869B; background-color: #282828;">0.0</span><span style="color: #FE8019; background-color: #282828;">,</span> <span style="color: #FABD2F; background-color: #282828;">Duration</span><span style="color: #FE8019; background-color: #282828;">::</span><span style="color: #D3869B; background-color: #282828;">ZERO</span><span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">,</span> |<span style="color: #FE8019; background-color: #282828;">(</span>rel<span style="color: #FE8019; background-color: #282828;">,</span> dur<span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">,</span> song| <span style="color: #FE8019; background-color: #282828;">{</span>
+            <span style="color: #FE8019; background-color: #282828;">(</span>rel + <span style="color: #B8BB26; background-color: #282828;">relevance</span><span style="color: #FE8019; background-color: #282828;">(</span>song<span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">,</span> dur + song<span style="color: #FE8019; background-color: #282828;">.</span>duration<span style="color: #FE8019; background-color: #282828;">)</span>
+        <span style="color: #FE8019; background-color: #282828;">}</span><span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">;</span>
+
+    <span style="color: #928374; background-color: #282828;font-style: italic;">&#x2f;&#x2f; Use the negative of the duration as the cost if the duration violates our maximum duration constraint.</span>
+    <span style="color: #FB4934; background-color: #282828;">let</span> cost = <span style="color: #FB4934; background-color: #282828;">if</span> duration &gt; problem<span style="color: #FE8019; background-color: #282828;">.</span>max_duration <span style="color: #FE8019; background-color: #282828;">{</span>
+        -duration<span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">as_secs_f64</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #FE8019; background-color: #282828;">)</span>
+    <span style="color: #FE8019; background-color: #282828;">}</span> <span style="color: #FB4934; background-color: #282828;">else</span> <span style="color: #FE8019; background-color: #282828;">{</span>
+        relevance
+    <span style="color: #FE8019; background-color: #282828;">}</span><span style="color: #FE8019; background-color: #282828;">;</span>
+
+    <span style="color: #928374; background-color: #282828;font-style: italic;">&#x2f;&#x2f; Wrap it in a `NotNan&lt;f64&gt;`, since `f64`s don&#x27;t have a total order.</span>
+    <span style="color: #FABD2F; background-color: #282828;">NotNan</span><span style="color: #FE8019; background-color: #282828;">::</span><span style="color: #B8BB26; background-color: #282828;">new</span><span style="color: #FE8019; background-color: #282828;">(</span>cost<span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">unwrap</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #FE8019; background-color: #282828;">)</span>
+<span style="color: #FE8019; background-color: #282828;">}</span>
+</code></pre></code></pre>
+<p>Finally, we can construct the metaheuristic by combining a few metaheuristic operators like so, and run it on a given problem instance to produce a solution:</p>
+<pre style="background-color: #282828; color: #EBDBB2;"><code><span style="color: #FB4934; background-color: #282828;">let</span> problem<span style="color: #FE8019; background-color: #282828;">:</span> <span style="color: #FABD2F; background-color: #282828;">Problem</span> = <span style="color: #928374; background-color: #282828;font-style: italic;">&#x2f;* ... *&#x2f;</span><span style="color: #FE8019; background-color: #282828;">;</span>
+
+<span style="color: #FB4934; background-color: #282828;">let</span> flip_chance = <span style="color: #FABD2F; background-color: #282828;">Bernoulli</span><span style="color: #FE8019; background-color: #282828;">::</span><span style="color: #B8BB26; background-color: #282828;">new</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #D3869B; background-color: #282828;">0.1</span><span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">unwrap</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">;</span>
+<span style="color: #FB4934; background-color: #282828;">let</span> rng = rand<span style="color: #FE8019; background-color: #282828;">::</span><span style="color: #B8BB26; background-color: #282828;">thread_rng</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">;</span>
+
+<span style="color: #928374; background-color: #282828;font-style: italic;">&#x2f;&#x2f; Define the individual &quot;operators&quot; or components for the metaheuristic.</span>
+<span style="color: #FB4934; background-color: #282828;">let</span> init = init<span style="color: #FE8019; background-color: #282828;">::</span><span style="color: #B8BB26; background-color: #282828;">from_individual</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #83A598; background-color: #282828;">vec</span><span style="color: #83A598; background-color: #282828;">!</span><span style="color: #FE8019; background-color: #282828;">[</span><span style="color: #D3869B; background-color: #282828;">false</span><span style="color: #FE8019; background-color: #282828;">;</span> problem<span style="color: #FE8019; background-color: #282828;">.</span>available_songs<span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">len</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">]</span><span style="color: #FE8019; background-color: #282828;"></span><span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">;</span>
+<span style="color: #FB4934; background-color: #282828;">let</span> mutate = <span style="color: #FABD2F; background-color: #282828;">FlipAllBits</span><span style="color: #FE8019; background-color: #282828;">::</span><span style="color: #B8BB26; background-color: #282828;">new</span><span style="color: #FE8019; background-color: #282828;">(</span>flip_chance<span style="color: #FE8019; background-color: #282828;">,</span> rng<span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">;</span>
+<span style="color: #FB4934; background-color: #282828;">let</span> search = <span style="color: #FABD2F; background-color: #282828;">SteepestAscentBitClimb</span><span style="color: #FE8019; background-color: #282828;">::</span><span style="color: #B8BB26; background-color: #282828;">new</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">;</span>
+<span style="color: #FB4934; background-color: #282828;">let</span> accept = <span style="color: #FABD2F; background-color: #282828;">NonWorsening</span><span style="color: #FE8019; background-color: #282828;">::</span><span style="color: #B8BB26; background-color: #282828;">new</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">;</span>
+<span style="color: #FB4934; background-color: #282828;">let</span> stop = <span style="color: #FABD2F; background-color: #282828;">Iterations</span><span style="color: #FE8019; background-color: #282828;">::</span><span style="color: #B8BB26; background-color: #282828;">new</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #D3869B; background-color: #282828;">1000</span><span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">;</span>
+
+<span style="color: #928374; background-color: #282828;font-style: italic;">&#x2f;&#x2f; Create the metaheuristic itself by combining the above operators.</span>
+<span style="color: #FB4934; background-color: #282828;">let</span> <span style="color: #FB4934; background-color: #282828;">mut</span> ils = op<span style="color: #FE8019; background-color: #282828;">::</span><span style="color: #B8BB26; background-color: #282828;">hint</span><span style="color: #FE8019; background-color: #282828;">(</span>init<span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">then</span><span style="color: #FE8019; background-color: #282828;">(</span>
+    op<span style="color: #FE8019; background-color: #282828;">::</span><span style="color: #B8BB26; background-color: #282828;">hint</span><span style="color: #FE8019; background-color: #282828;">(</span>mutate<span style="color: #FE8019; background-color: #282828;">)</span>
+        <span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">then</span><span style="color: #FE8019; background-color: #282828;">(</span>search<span style="color: #FE8019; background-color: #282828;">)</span>
+        <span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">accept_if</span><span style="color: #FE8019; background-color: #282828;">(</span>accept<span style="color: #FE8019; background-color: #282828;">)</span>
+        <span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">ignore</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #FE8019; background-color: #282828;">)</span>
+        <span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">repeat_until</span><span style="color: #FE8019; background-color: #282828;">(</span>stop<span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">,</span>
+<span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">;</span>
+
+<span style="color: #928374; background-color: #282828;font-style: italic;">&#x2f;&#x2f; Wrap our evaluation function into something that can be passed to `solve`.</span>
+<span style="color: #FB4934; background-color: #282828;">let</span> <span style="color: #FB4934; background-color: #282828;">mut</span> eval = eval<span style="color: #FE8019; background-color: #282828;">::</span><span style="color: #B8BB26; background-color: #282828;">from_fn</span><span style="color: #FE8019; background-color: #282828;">(</span>cost<span style="color: #FE8019; background-color: #282828;">)</span><span style="color: #FE8019; background-color: #282828;">;</span>
+
+<span style="color: #928374; background-color: #282828;font-style: italic;">&#x2f;&#x2f; Run the metaheuristic to produce a solution.</span>
+<span style="color: #FB4934; background-color: #282828;">let</span> solution = ils<span style="color: #FE8019; background-color: #282828;">.</span><span style="color: #B8BB26; background-color: #282828;">solve</span><span style="color: #FE8019; background-color: #282828;">(</span><span style="color: #D3869B; background-color: #282828;">&amp;</span>problem<span style="color: #FE8019; background-color: #282828;">,</span> <span style="color: #D3869B; background-color: #282828;">&amp;</span><span style="color: #FB4934; background-color: #282828;">mut</span> eval<span style="color: #FE8019; background-color: #282828;">)</span>?<span style="color: #FE8019; background-color: #282828;">;</span>
+</code></pre></code></pre>
+<p>It’s quite basic, so it’s debatable whether this metaheuristic is actually good. However, the same metaheuristic performed quite well on a challenging knapsack problem instance in <a href="https://github.com/Carnagion/heur/blob/main/examples/knapsack.rs">one of <code>heur</code>’s examples</a>, so it might work better than expected.</p>
+<p>Of course, metaheuristics aren’t the only way to solve the knapsack problem. You could, for example, create a <a href="https://en.wikipedia.org/wiki/Integer_programming">mixed-integer programming</a> model and apply an algorithm such as simplex or branch-and-bound to solve it. There’s also a <a href="https://en.wikipedia.org/wiki/Knapsack_problem#Dynamic_programming_in-advance_algorithm">dynamic programming algorithm</a> that solves it in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>O</mi><mo>(</mo><mi>n</mi><mi>W</mi><mo>)</mo></math> time, where <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>n</mi></math> is the number of items and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>W</mi></math> is the knapsack’s weight limit.</p>
+<h2><a href="#how-useful-is-all-this-anyway" aria-hidden="true" class="anchor" id="how-useful-is-all-this-anyway"></a>How useful is all this anyway?</h2>
+<p>It depends. I mean, most people probably don’t care about optimising their playlists to fit under specific durations and contain only the most relevant songs according to an algorithm.</p>
+<p>Then again, <em>I</em> found it quite neat and would definitely want it as a feature in media players, so maybe someone else will too. Who knows?</p>
+<hr />
+<section class="footnotes" data-footnotes>
+<ol>
+<li id="fn-pirate-metal">
+<p>What’s pirate metal, you ask? It’s the most glorious sub-genre of metal ever conceived. Go read <a href="https://en.wikipedia.org/wiki/Pirate_metal">its Wikipedia page</a>. <a href="#fnref-pirate-metal" class="footnote-backref" data-footnote-backref data-footnote-backref-idx="1" aria-label="Back to reference 1">↩</a></p>
+</li>
+<li id="fn-incomplete-example">
+<p>I would usually provide complete snippets and a more detailed explanation. Unfortunately, I’m neck deep in university coursework and want to keep this post short, so I won’t be providing a fully reproducible example. <a href="#fnref-incomplete-example" class="footnote-backref" data-footnote-backref data-footnote-backref-idx="2" aria-label="Back to reference 2">↩</a></p>
+</li>
+</ol>
+</section>
+
+    </article>
+
+        </main>
+        
+        <footer class="
+            grid-row:2
+            grid-col:1
+
+            p:4x
+        ">
+            <nav>
+                <ul class="
+                    list-style:none
+                    inline-block_li
+
+                    pl:0
+
+                    flex
+                    justify-content:space-between
+                    
+                    fg:blue-90_a
+                    text-decoration:none_a
+                    text-decoration:underline_a:hover
+                ">
+                    <li class="font-family:Literata">
+                        <a href="#top">Back to top &uarr;</a>
+                    </li>
+                    <li class="
+                        fg:black
+                        font-family:Gentium|Plus
+                    ">
+                        &copy; 2024
+                        <b>&middot;</b>
+                        Content licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA</a>
+                        <b>&middot;</b>
+                        <a href="https://github.com/Carnagion/carnagion.github.io">Code</a>
+                    </li>
+                </ul>
+            </nav>
+        </footer>
+    </body>
+</html>
