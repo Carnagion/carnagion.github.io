@@ -5,7 +5,7 @@
     <title>Indraneel Mahendrakumar's blog</title>
     
     {% if let Some(last_updated) = self.last_updated() %}
-        <updated>{{ last_updated }}</updated>
+        <updated>{{ last_updated.strftime("%FT%T%.f%:z") }}</updated>
     {% endif %}
 
     <author>
@@ -27,14 +27,14 @@
 
                 <title>{{ article.meta.title }}</title>
 
-                <published>{{ published }}</published>
+                <published>{{ published.strftime("%FT%T%.f%:z") }}</published>
                 <updated>
-                    {% match updated %}
-                        {% when None %}
-                            {{ published }}
-                        {% when Some(updated) %}
-                            {{ updated }}
-                    {% endmatch %}
+                    {%- match updated -%}
+                        {%- when None -%}
+                            {{- published.strftime("%FT%T%.f%:z") -}}
+                        {%- when Some(updated) -%}
+                            {{- updated.strftime("%FT%T%.f%:z") -}}
+                    {%- endmatch -%}
                 </updated>
 
                 <author>
