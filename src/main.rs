@@ -17,6 +17,7 @@ use templates::{
     blog::Blog,
     feed::Feed,
     index::Index,
+    not_found::NotFound,
 };
 
 fn main() -> anyhow::Result<()> {
@@ -65,6 +66,10 @@ fn main() -> anyhow::Result<()> {
     // Render landing page
     let index = Index;
     fs::write("docs/index.html", index.render()?)?;
+
+    // Render 404 page
+    let not_found = NotFound;
+    fs::write("docs/404.html", not_found.render()?)?;
 
     // Copy over asset files
     for entry in WalkDir::new("assets/") {
