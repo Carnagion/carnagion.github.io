@@ -1,6 +1,6 @@
 #![deny(rust_2018_idioms)]
 
-use std::{fs, path::Path};
+use std::{fs, io, path::Path};
 
 use askama::Template;
 
@@ -22,7 +22,10 @@ use templates::{
 
 fn main() -> anyhow::Result<()> {
     // Reset output directory
-    fs::remove_dir_all("docs/")?;
+    match fs::remove_dir_all("docs/") {
+        Err(err) if err.kind() == io::ErrorKind::NotFound => Ok(()),
+        other => other,
+    }?;
     fs::create_dir_all("docs/blog/")?;
 
     let arena = Arena::new();
