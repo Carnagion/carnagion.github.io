@@ -1,2 +1,5 @@
 # Cargo compilation output
 target/
+
+# Generated site
+docs/
