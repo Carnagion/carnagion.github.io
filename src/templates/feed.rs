@@ -10,7 +10,7 @@ pub struct Feed<'a> {
     pub blog: Blog<'a>,
 }
 
-impl<'a> Feed<'a> {
+impl Feed<'_> {
     fn last_updated(&self) -> Option<&Zoned> {
         self.blog
             .articles
