@@ -20,12 +20,12 @@
     <generator uri="https://github.com/Carnagion/carnagion.github.io">carnagion.github.io</generator>
     
     {% for article in self.blog.archive() %}
-        {% if let Status::Published { published, updated } = article.meta.status %}
-            {% let slug = slug::slugify(article.meta.title) %}
+        {% if let Status::Published { published, updated } = article.status %}
+            {% let slug = slug::slugify(article.title) %}
             <entry xml:lang="en">
                 <id>https://carnagion.github.io/blog/{{ slug }}</id>
 
-                <title>{{ article.meta.title }}</title>
+                <title>{{ article.title }}</title>
 
                 <published>{{ published.strftime("%FT%T%.f%:z") }}</published>
                 <updated>
@@ -47,7 +47,7 @@
 
                 <content type="html" xml:base="https://carnagion.github.io/blog/{{ slug }}">
                     {# NOTE: The `safe` filter isn't used here since the HTML needs to be escaped. #}
-                    {{ article.md().to_html()? }}
+                    {{ article.md.to_html()? }}
                 </content>
             </entry>
         {% endif %}

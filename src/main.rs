@@ -73,12 +73,12 @@ fn render_blog() -> anyhow::Result<()> {
         let article = Article::new(md)?;
 
         // Ignore drafts
-        if article.meta.status == Status::Draft {
+        if article.status == Status::Draft {
             continue;
         }
 
         let dst = Path::new("docs/blog/")
-            .join(slug::slugify(&article.meta.title))
+            .join(slug::slugify(&article.title))
             .with_extension("html");
         fs::write(dst, article.render()?)?;
 

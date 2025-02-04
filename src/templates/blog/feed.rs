@@ -15,7 +15,7 @@ impl Feed<'_> {
         self.blog
             .articles
             .iter()
-            .filter_map(|article| match &article.meta.status {
+            .filter_map(|article| match &article.status {
                 Status::Draft => None,
                 Status::Published {
                     published,

@@ -1,15 +1,15 @@
 {% extends "page.html" %}
 
-{%- block title -%} {{ self.meta.title }} | Indraneel Mahendrakumar {%- endblock title -%}
-{%- block description -%} {{ self.meta.description }} {%- endblock description -%}
+{%- block title -%} {{ self.title }} | Indraneel Mahendrakumar {%- endblock title -%}
+{%- block description -%} {{ self.description }} {%- endblock description -%}
 
 {% block content %}
     <article>
         <header>
-            <h1 class="mt:0">{{ self.meta.title }}</h1>
+            <h1 class="mt:0">{{ self.title }}</h1>
 
             <p class="font-family:Gentium|Plus">
-                {% match self.meta.status %}
+                {% match self.status %}
                     {% when Status::Draft %}
                         Draft
                     {% when Status::Published with { published, updated } %}

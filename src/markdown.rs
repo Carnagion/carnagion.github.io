@@ -21,6 +21,8 @@ use inkjet::theme::{self, Theme};
 
 use latex2mathml::{latex_to_mathml, DisplayStyle, LatexError};
 
+use serde::de::{DeserializeOwned, Error};
+
 use thiserror::Error;
 
 pub mod highlighter;
@@ -42,6 +44,29 @@ impl<'a> Markdown<'a> {
         let ast = comrak::parse_document(arena, md, &options);
 
         Self { ast }
+    }
+
+    pub fn extract_front_matter<T>(&self) -> Result<T, toml::de::Error>
+    where
+        T: DeserializeOwned,
+    {
+        self.ast
+            .descendants()
+            .find_map(|node| {
+                let value = &node.data.borrow().value;
+                let front_matter = match value {
+                    NodeValue::FrontMatter(front_matter) => Some(front_matter),
+                    _ => None,
+                }?;
+
+                // Remove the front matter node
+                node.detach();
+
+                let front_matter =
+                    front_matter.trim_matches(|c: char| c.is_whitespace() || c == '+');
+                Some(toml::from_str(front_matter))
+            })
+            .unwrap_or_else(|| Err(toml::de::Error::custom("no front matter found")))
     }
 
     pub fn to_html(&self) -> Result<String, ToHtmlError> {

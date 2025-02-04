@@ -22,18 +22,18 @@
             pl:0
         ">
             {% for article in self.archive() %}
-                {% if let Status::Published { published, updated } = article.meta.status %}
+                {% if let Status::Published { published, updated } = article.status %}
                     <li>
                         <article>
                             <h3>
-                                <a href="/blog/{{ slug::slugify(article.meta.title) }}">{{ article.meta.title }}</a>
+                                <a href="/blog/{{ slug::slugify(article.title) }}">{{ article.title }}</a>
                             </h3>
     
                             <p>
                                 {% let datetime = published.strftime("%FT%T%.f%:z") %}
                                 <time datetime="{{ datetime }}" class="font-family:Gentium|Plus">{{ published.strftime("%d %B %Y") }}</time>
                                 <b>&middot;</b>
-                                {{ article.meta.description }}
+                                {{ article.description }}
                             </p>
                         </article>
                     </li>

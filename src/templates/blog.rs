@@ -22,12 +22,12 @@ impl<'a> Blog<'a> {
         let mut articles = self
             .articles
             .iter()
-            .filter(|article| article.meta.status != Status::Draft)
+            .filter(|article| article.status != Status::Draft)
             .cloned()
             .collect::<Vec<_>>();
 
         articles.sort_unstable_by_key(|article| {
-            Reverse(match &article.meta.status {
+            Reverse(match &article.status {
                 Status::Draft => None,
                 Status::Published { published, .. } => Some(published).cloned(),
             })

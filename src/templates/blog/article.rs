@@ -4,39 +4,38 @@ use comrak::nodes::NodeValue;
 
 use jiff::Zoned;
 
-use serde::{de::Error, Deserialize};
+use serde::Deserialize;
+
+use thiserror::Error;
 
 use crate::markdown::Markdown;
 
 #[derive(Debug, Clone, Template)]
 #[template(path = "blog/article.html")]
 pub struct Article<'a> {
-    md: Markdown<'a>,
-    pub meta: Meta,
+    pub md: Markdown<'a>,
+    pub title: String,
+    pub description: String,
+    pub status: Status,
 }
 
 impl<'a> Article<'a> {
-    pub fn new(md: Markdown<'a>) -> Result<Self, toml::de::Error> {
-        let meta = md
-            .ast
-            .descendants()
-            .find_map(|node| {
-                let node = &node.data.borrow().value;
-                let front_matter = match node {
-                    NodeValue::FrontMatter(front_matter) => Some(front_matter),
-                    _ => None,
-                }?;
-                let front_matter =
-                    front_matter.trim_matches(|c: char| c.is_whitespace() || c == '+');
-                Some(toml::from_str(front_matter))
-            })
-            .unwrap_or_else(|| Err(toml::de::Error::custom("no front matter found")))?;
+    pub fn new(md: Markdown<'a>) -> Result<Self, FromMarkdownError> {
+        #[derive(Deserialize)]
+        #[serde(deny_unknown_fields, rename_all = "kebab-case")]
+        struct FrontMatter {
+            title: String,
+            description: String,
+            status: Status,
+        }
 
-        Ok(Self { md, meta })
-    }
-
-    pub(crate) fn md(&self) -> &Markdown<'a> {
-        &self.md
+        let meta = md.extract_front_matter::<FrontMatter>()?;
+        Ok(Self {
+            md,
+            title: meta.title,
+            description: meta.description,
+            status: meta.status,
+        })
     }
 
     fn reading_time(&self) -> (usize, usize) {
@@ -65,6 +64,25 @@ impl<'a> Article<'a> {
     }
 }
 
+#[derive(Debug, Default, Clone, Eq, PartialEq, Deserialize)]
+#[serde(deny_unknown_fields, rename_all = "kebab-case")]
+pub enum Status {
+    #[default]
+    Draft,
+    #[serde(untagged)]
+    Published {
+        published: Zoned,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        updated: Option<Zoned>,
+    },
+}
+
+#[derive(Debug, Error)]
+pub enum FromMarkdownError {
+    #[error("could not extract article metadata: {0}")]
+    Meta(#[from] toml::de::Error),
+}
+
 fn extract_text(node: &NodeValue) -> Option<&str> {
     match node {
         NodeValue::Code(code) => Some(&code.literal),
@@ -78,25 +96,4 @@ fn extract_text(node: &NodeValue) -> Option<&str> {
         NodeValue::ShortCode(shortcode) => Some(&shortcode.emoji),
         _ => None,
     }
-}
-
-#[derive(Debug, Clone, Eq, PartialEq, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "kebab-case")]
-pub struct Meta {
-    pub title: String,
-    pub description: String,
-    pub status: Status,
-}
-
-#[derive(Debug, Default, Clone, Eq, PartialEq, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "kebab-case")]
-pub enum Status {
-    #[default]
-    Draft,
-    #[serde(untagged)]
-    Published {
-        published: Zoned,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        updated: Option<Zoned>,
-    },
 }
