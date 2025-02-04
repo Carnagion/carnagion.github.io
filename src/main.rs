@@ -21,13 +21,38 @@ use templates::{
 };
 
 fn main() -> anyhow::Result<()> {
-    // Reset output directory
+    reset_output_dir()?;
+
+    render_blog()?;
+
+    // Render landing page
+    let index = Index;
+    fs::write("docs/index.html", index.render()?)?;
+
+    // Render 404 page
+    let not_found = NotFound;
+    fs::write("docs/404.html", not_found.render()?)?;
+
+    copy_assets()?;
+
+    Ok(())
+}
+
+fn reset_output_dir() -> anyhow::Result<()> {
+    // Remove the output directory and its contents, ignoring errors if it did not exist
     match fs::remove_dir_all("docs/") {
         Err(err) if err.kind() == io::ErrorKind::NotFound => Ok(()),
         other => other,
     }?;
-    fs::create_dir_all("docs/blog/")?;
 
+    // Re-create the output directory and necessary sub-directories
+    fs::create_dir("docs/")?;
+    fs::create_dir("docs/blog/")?;
+
+    Ok(())
+}
+
+fn render_blog() -> anyhow::Result<()> {
     let arena = Arena::new();
 
     // Render blog posts
@@ -66,14 +91,10 @@ fn main() -> anyhow::Result<()> {
     let feed = Feed { blog };
     fs::write("docs/blog/atom.xml", feed.render()?)?;
 
-    // Render landing page
-    let index = Index;
-    fs::write("docs/index.html", index.render()?)?;
+    Ok(())
+}
 
-    // Render 404 page
-    let not_found = NotFound;
-    fs::write("docs/404.html", not_found.render()?)?;
-
+fn copy_assets() -> anyhow::Result<()> {
     // Copy over asset files
     for entry in WalkDir::new("assets/") {
         let entry = entry?;
