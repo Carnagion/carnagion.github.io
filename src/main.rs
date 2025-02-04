@@ -13,9 +13,11 @@ use markdown::Markdown;
 
 mod templates;
 use templates::{
-    article::{Article, Status},
-    blog::Blog,
-    feed::Feed,
+    blog::{
+        article::{Article, Status},
+        feed::Feed,
+        Blog,
+    },
     index::Index,
     not_found::NotFound,
 };

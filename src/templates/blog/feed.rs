@@ -2,10 +2,10 @@ use askama::Template;
 
 use jiff::Zoned;
 
-use super::{article::Status, blog::Blog};
+use super::{article::Status, Blog};
 
 #[derive(Debug, Clone, Template)]
-#[template(path = "atom.xml")]
+#[template(path = "blog/atom.xml")]
 pub struct Feed<'a> {
     pub blog: Blog<'a>,
 }

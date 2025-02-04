@@ -6,7 +6,10 @@ use comrak::Arena;
 
 use crate::markdown::Markdown;
 
-use super::article::{Article, Status};
+pub mod article;
+use article::{Article, Status};
+
+pub mod feed;
 
 #[derive(Debug, Clone, Template)]
 #[template(path = "blog.html")]

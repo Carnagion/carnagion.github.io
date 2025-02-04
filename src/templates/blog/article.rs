@@ -9,7 +9,7 @@ use serde::{de::Error, Deserialize};
 use crate::markdown::Markdown;
 
 #[derive(Debug, Clone, Template)]
-#[template(path = "article.html")]
+#[template(path = "blog/article.html")]
 pub struct Article<'a> {
     md: Markdown<'a>,
     pub meta: Meta,
