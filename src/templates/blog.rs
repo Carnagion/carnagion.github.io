@@ -18,7 +18,7 @@ pub struct Blog<'a> {
 }
 
 impl<'a> Blog<'a> {
-    pub(crate) fn archive(&self) -> Vec<Article<'a>> {
+    fn archive(&self) -> Vec<Article<'a>> {
         let mut articles = self
             .articles
             .iter()
