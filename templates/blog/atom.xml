@@ -47,7 +47,7 @@
 
                 <content type="html" xml:base="https://carnagion.github.io/blog/{{ slug }}">
                     {# NOTE: The `safe` filter isn't used here since the HTML needs to be escaped. #}
-                    {{ article.md.to_html()? }}
+                    {{ article.content.to_html()? }}
                 </content>
             </entry>
         {% endif %}

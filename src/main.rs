@@ -70,7 +70,7 @@ fn render_blog() -> anyhow::Result<()> {
 
         let content = fs::read_to_string(src)?;
         let md = Markdown::new(&content, &arena);
-        let article = Article::new(md)?;
+        let article = Article::from_content(md)?;
 
         // Ignore drafts
         if article.status == Status::Draft {

@@ -39,6 +39,6 @@
             <hr>
         </header>
 
-        {{ self.md.to_html()?|safe }}
+        {{ self.content.to_html()?|safe }}
     </article>
 {% endblock content %}

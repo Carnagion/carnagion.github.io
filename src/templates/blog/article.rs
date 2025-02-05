@@ -13,14 +13,14 @@ use crate::markdown::Markdown;
 #[derive(Debug, Clone, Template)]
 #[template(path = "blog/article.html")]
 pub struct Article<'a> {
-    pub md: Markdown<'a>,
+    pub content: Markdown<'a>,
     pub title: String,
     pub description: String,
     pub status: Status,
 }
 
 impl<'a> Article<'a> {
-    pub fn new(md: Markdown<'a>) -> Result<Self, FromMarkdownError> {
+    pub fn from_content(content: Markdown<'a>) -> Result<Self, FromMarkdownError> {
         #[derive(Deserialize)]
         #[serde(deny_unknown_fields, rename_all = "kebab-case")]
         struct FrontMatter {
@@ -29,9 +29,9 @@ impl<'a> Article<'a> {
             status: Status,
         }
 
-        let meta = md.extract_front_matter::<FrontMatter>()?;
+        let meta = content.extract_front_matter::<FrontMatter>()?;
         Ok(Self {
-            md,
+            content,
             title: meta.title,
             description: meta.description,
             status: meta.status,
@@ -45,7 +45,7 @@ impl<'a> Article<'a> {
         let variance = 118;
 
         let chars = self
-            .md
+            .content
             .ast
             .descendants()
             .filter_map(|node| {
