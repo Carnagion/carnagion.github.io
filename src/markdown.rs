@@ -99,6 +99,30 @@ impl<'a> Markdown<'a> {
         let html = String::from_utf8(html.into_inner()?)?;
         Ok(html)
     }
+
+    pub fn reading_time(&self) -> (usize, usize) {
+        // NOTE: These statistics are taken from Firefox's source code, which uses them for its reader view.
+        //       See https://searchfox.org/mozilla-central/source/mobile/android/android-components/components/feature/readerview/src/main/assets/extensions/readerview/readerview.js#221.
+        let cpm = 987;
+        let variance = 118;
+
+        let chars = self
+            .ast
+            .descendants()
+            .filter_map(|node| {
+                let node = &node.data.borrow().value;
+                let text = extract_text(node)?;
+                // NOTE: I would normally use the `unicode-segmentation` crate for this, but I write primarily in English with very few
+                //       emojis, so the vast majority of text I write will be ASCII.
+                Some(text.len())
+            })
+            .sum::<usize>();
+
+        let fast = chars.div_euclid(cpm + variance);
+        let slow = chars.div_ceil(cpm - variance);
+
+        (fast, slow)
+    }
 }
 
 fn replace_mathml<'a>(ast: &'a AstNode<'a>) -> Result<(), LatexError> {
@@ -122,6 +146,21 @@ fn replace_mathml<'a>(ast: &'a AstNode<'a>) -> Result<(), LatexError> {
     }
 
     Ok(())
+}
+
+fn extract_text(node: &NodeValue) -> Option<&str> {
+    match node {
+        NodeValue::Code(code) => Some(&code.literal),
+        NodeValue::CodeBlock(code) => Some(&code.literal),
+        NodeValue::EscapedTag(tag) => Some(tag),
+        NodeValue::HtmlBlock(html) => Some(&html.literal),
+        NodeValue::HtmlInline(html) => Some(html),
+        NodeValue::Link(link) => Some(&link.title),
+        NodeValue::Math(math) => Some(&math.literal),
+        NodeValue::Text(text) => Some(text),
+        NodeValue::ShortCode(shortcode) => Some(&shortcode.emoji),
+        _ => None,
+    }
 }
 
 #[derive(Debug, Error)]

@@ -1,6 +1,6 @@
 {% extends "page.html" %}
 
-{%- block title -%} {{ self.title }} | Indraneel Mahendrakumar {%- endblock title -%}
+{%- block title -%} {{ self.title }} &middot; Indraneel Mahendrakumar {%- endblock title -%}
 {%- block description -%} {{ self.description }} {%- endblock description -%}
 
 {% block content %}
@@ -18,13 +18,13 @@
 
                         {% if let Some(updated) = updated %}
                             {% let datetime = updated.strftime("%FT%T%.f%:z") %}
-                            (Updated <time datetime="{{ datetime }}">{{ updated.strftime("%d %B %Y") }}</time>)
+                            (updated <time datetime="{{ datetime }}">{{ updated.strftime("%d %B %Y") }}</time>)
                         {% endif %}
                 {% endmatch %}
                 
                 <b>&middot;</b>
 
-                {% let (fast, slow) = self.reading_time() %}
+                {% let (fast, slow) = self.content.reading_time() %}
                 {% if fast == slow %}
                     {% if fast == 1 %}
                         1 minute
