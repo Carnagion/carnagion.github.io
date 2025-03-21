@@ -13,11 +13,7 @@ use markdown::Markdown;
 
 mod templates;
 use templates::{
-    blog::{
-        article::{Article, Status},
-        feed::Feed,
-        Blog,
-    },
+    blog::{article::Article, feed::Feed, Blog},
     index::Index,
     not_found::NotFound,
 };
@@ -71,11 +67,6 @@ fn render_blog() -> anyhow::Result<()> {
         let content = fs::read_to_string(src)?;
         let md = Markdown::new(&content, &arena);
         let article = Article::from_content(md)?;
-
-        // Ignore drafts
-        if article.status == Status::Draft {
-            continue;
-        }
 
         let dst = Path::new("docs/blog/")
             .join(slug::slugify(&article.title))
