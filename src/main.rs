@@ -6,6 +6,8 @@ use askama::Template;
 
 use comrak::Arena;
 
+use ureq::Agent;
+
 use walkdir::WalkDir;
 
 mod markdown;
@@ -16,12 +18,15 @@ use templates::{
     blog::{article::Article, feed::Feed, Blog},
     index::Index,
     not_found::NotFound,
+    reviews::{review::Review, Reviews},
 };
 
 fn main() -> anyhow::Result<()> {
     reset_output_dir()?;
 
     render_blog()?;
+
+    render_reviews()?;
 
     // Render landing page
     let index = Index;
@@ -46,6 +51,7 @@ fn reset_output_dir() -> anyhow::Result<()> {
     // Re-create the output directory and necessary sub-directories
     fs::create_dir("docs/")?;
     fs::create_dir("docs/blog/")?;
+    fs::create_dir("docs/reviews/")?;
 
     Ok(())
 }
@@ -83,6 +89,45 @@ fn render_blog() -> anyhow::Result<()> {
     // Render Atom feed
     let feed = Feed { blog };
     fs::write("docs/blog/atom.xml", feed.render()?)?;
+
+    Ok(())
+}
+
+fn render_reviews() -> anyhow::Result<()> {
+    let agent = Agent::new_with_defaults();
+
+    let arena = Arena::new();
+
+    // Render music reviews
+    let mut reviews = Vec::new();
+    for entry in WalkDir::new("content/reviews/") {
+        let entry = entry?;
+        let src = entry.path();
+
+        // Ignore directories and non-Markdown files
+        if src.extension().is_none_or(|ext| ext != "md") {
+            continue;
+        }
+
+        let content = fs::read_to_string(src)?;
+        let md = Markdown::new(&content, &arena);
+        let review = Review::from_content(md, &agent)?;
+
+        let dst = Path::new("docs/reviews/")
+            .join(format!(
+                "{}-{}",
+                slug::slugify(&review.title),
+                slug::slugify(&review.artists),
+            ))
+            .with_extension("html");
+        fs::write(dst, review.render()?)?;
+
+        reviews.push(review);
+    }
+
+    // Render reviews page
+    let reviews = Reviews { reviews };
+    fs::write("docs/reviews.html", reviews.render()?)?;
 
     Ok(())
 }

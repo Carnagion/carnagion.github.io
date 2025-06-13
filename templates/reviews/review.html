@@ -1,0 +1,64 @@
+{% extends "page.html" %}
+
+{%- block title -%} Reviewing "{{ self.title }}" by {{ self.artists }} &middot; Indraneel Mahendrakumar {%- endblock title -%}
+{%- block description -%} A review of "{{ self.title }}" by {{ self.artists }} {%- endblock description -%}
+
+{% block content %}
+    <article>
+        <header>
+            <h1 class="mt:0">
+                Reviewing
+                <em>{{ self.title }}</em>
+                by {{ self.artists }}
+            </h1>
+
+            <p class="font-family:Gentium|Plus">
+                {% match self.status %}
+                    {% when Status::Draft %}
+                        Draft
+                    {% when Status::Published with { published, updated } %}
+                        {% let datetime = published.strftime("%FT%T%.f%:z") %}
+                        Published <time datetime="{{ datetime }}">{{ published.strftime("%d %B %Y") }}</time>
+
+                        {% if let Some(updated) = updated %}
+                            {% let datetime = updated.strftime("%FT%T%.f%:z") %}
+                            (updated <time datetime="{{ datetime }}">{{ updated.strftime("%d %B %Y") }}</time>)
+                        {% endif %}
+                {% endmatch %}
+                
+                <b>&middot;</b>
+
+                {% let (fast, slow) = self.content.reading_time() %}
+                {% if fast == slow %}
+                    {% if fast == 1 %}
+                        1 minute
+                    {% else %}
+                        {{ fast }} minutes
+                    {% endif %}
+                {% else %}
+                    {{ fast }}&ndash;{{ slow }} minutes
+                {% endif %}
+            </p>
+            
+            <hr>
+        </header>
+        <img
+            src="https://coverartarchive.org/release-group/{{ self.mbid }}/front"
+            alt="Cover art for &quot;{{ self.title }}&quot; by {{ self.artists }}."
+            title="Cover art for &quot;{{ self.title }}&quot; by {{ self.artists }}."
+            class="
+                square
+                size:50%|50%
+                min:64x|64x
+        ">
+    
+        <p class="
+            font-family:Gentium|Plus
+            text:center
+        ">
+            Rating: <b>{{ self.rating }}</b>/10
+        </p>
+
+        {{ self.content.to_html()?|safe }}
+    </article>
+{% endblock content %}
