@@ -6,9 +6,9 @@
 {% block content %}
     <article>
         <header>
-            <h1 class="mt:0">{{ self.title }}</h1>
+            <h1 class="title">{{ self.title }}</h1>
 
-            <p class="font-family:Gentium|Plus">
+            <p class="subtitle">
                 {% match self.status %}
                     {% when Status::Draft %}
                         Draft

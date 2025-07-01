@@ -1,0 +1,203 @@
+:root {
+    --screen-small: 52.125rem;
+
+    --font-text: "Literata";
+    --font-aside: "Gentium Plus";
+    --font-code: "Recursive";
+    --font-math: "Cambria Math";
+    --font-backref: "Cambria";
+
+    --weight-semibold: 600;
+
+    --colour-links: #1344c4;
+    --colour-separators: #c3c6cf;
+    --colour-anchors: #63697c;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    color: var(--colour-links);
+    text-decoration: none;
+
+    /* Only underline links when hovering over them */
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+body {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: minmax(min-content, 80ch) min-content;
+    align-items: start;
+
+    margin: 0 auto;
+    padding: 1rem;
+
+    min-height: 100vh;
+    max-width: var(--screen-small);
+
+    hyphens: auto;
+
+    font-family: var(--font-text);
+
+    code,
+    pre {
+        hyphens: none;
+        white-space: pre-wrap;
+    }
+
+    >header {
+        grid-row: 1;
+        grid-column: 2;
+
+        padding: 1rem;
+
+        /* Fix the navbar to the top of the screen when scrolling */
+        position: sticky;
+        top: 1rem;
+
+        .avatar {
+            /* Ensure the image is a square */
+            aspect-ratio: 1/1;
+            width: 100%;
+            height: 100%;
+
+            border: 1px solid black;
+            box-shadow: 0.25rem 0.25rem black;
+        }
+
+        .navtitle a {
+            font-weight: var(--weight-semibold);
+            color: black;
+            text-decoration: none;
+        }
+    }
+
+    >main {
+        grid-row: 1;
+        grid-column: 1;
+
+        padding: 1rem;
+
+        code {
+            font-family: var(--font-code);
+        }
+
+        math {
+            font: 1.2em var(--font-math);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: var(--weight-semibold);
+
+            /* Show anchors when hovering over sub-headings */
+            &:hover>.anchor {
+                &::before {
+                    content: "#";
+                    position: absolute;
+                    width: 1em;
+                    margin-left: -1em;
+                    color: var(--colour-separators);
+                }
+
+                &:hover::before {
+                    color: black;
+                }
+            }
+        }
+
+        .title {
+            font-size: 3em;
+            font-weight: bold;
+            margin-top: 0;
+        }
+
+        .subtitle {
+            font-family: var(--font-aside);
+        }
+
+        a {
+            color: var(--colour-links);
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        hr {
+            border-style: none;
+            background: var(--colour-separators);
+            height: 1px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        pre {
+            border: 1px solid black;
+            box-shadow: 0.25rem 0.25rem black;
+            padding: 1rem;
+        }
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+
+            border: 1px solid black;
+            box-shadow: 0.25rem 0.25rem black;
+            padding: 1rem;
+        }
+
+        .footnotes {
+            font-family: var(--font-aside);
+
+            /* Align footnotes to main text with enough padding to accommodate up to double-digit item numbers */
+            ol {
+                margin-bottom: 0;
+                padding-left: 2ch;
+            }
+
+            .footnote-backref {
+                /* Gentium does not support the unicode character used for backrefs, so we use Cambria instead */
+                font: 1.2em var(--font-backref);
+            }
+        }
+    }
+
+    >footer {
+        grid-row: 2;
+        grid-column: 1;
+
+        padding: 1rem;
+
+        .source {
+            font-family: var(--font-aside);
+        }
+    }
+}
+
+/* Remove list element markers and padding */
+.unlist {
+    list-style: none;
+    padding-left: 0;
+}
+
+/* Horizontal list */
+.hlist {
+    display: flex;
+    justify-content: space-between;
+
+    li {
+        display: inline-block;
+    }
+}
