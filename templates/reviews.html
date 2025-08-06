@@ -6,8 +6,8 @@
 {% block content %}
     <article>
         <header>
-            <h1 class="mt:0">Music Reviews</h1>
-            <p class="font-family:Gentium|Plus">
+            <h1 class="title">Music Reviews</h1>
+            <p class="subtitle">
                 My hot takes on the music I come across.
             </p>
             <hr>
@@ -17,10 +17,7 @@
         {% let arena = Arena::new() %}
         {{ Markdown::new(md, arena).to_html()?|safe }}
     
-        <ul class="
-            list-style:none
-            pl:0
-        ">
+        <ul class="unlist">
             {% for review in self.archive() %}
                 {% if let Status::Published { published, updated } = review.status %}
                     <li>
@@ -30,12 +27,8 @@
                                     src="https://coverartarchive.org/release-group/{{ review.mbid }}/front"
                                     alt="Cover art for &quot;{{ review.title }}&quot; by {{ review.artists }}."
                                     title="Cover art for &quot;{{ review.title }}&quot; by {{ review.artists }}."
-                                    class="
-                                        square
-                                        size:50%|50%
-                                        min:64x|64x
-                                ">
-
+                                    class="coverart"
+                                >
                                 <h3>
                                     <a href="/reviews/{{ slug::slugify(review.title) }}-{{ slug::slugify(review.artists) }}">
                                         <em>{{ review.title }}</em>
@@ -45,10 +38,7 @@
                                 </h3>
                             </header>
     
-                            <p class="
-                                font-family:Gentium|Plus
-                                text:center
-                            ">
+                            <p class="rating">
                                 Rating: <b>{{ review.rating }}</b>/10
                             </p>
 

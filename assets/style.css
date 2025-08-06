@@ -174,6 +174,20 @@ body {
                 font: 1.2em var(--font-backref);
             }
         }
+
+        .coverart {
+            /* Ensure the image is a square */
+            aspect-ratio: 1/1;
+            width: 50%;
+            height: 50%;
+            min-width: 16rem;
+            min-height: 16rem;
+        }
+
+        .rating {
+            font-family: var(--font-aside);
+            text-align: center;
+        }
     }
 
     >footer {

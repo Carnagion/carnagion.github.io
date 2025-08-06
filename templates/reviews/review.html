@@ -6,13 +6,13 @@
 {% block content %}
     <article>
         <header>
-            <h1 class="mt:0">
+            <h1 class="title">
                 Reviewing
                 <em>{{ self.title }}</em>
                 by {{ self.artists }}
             </h1>
 
-            <p class="font-family:Gentium|Plus">
+            <p class="subtitle">
                 {% match self.status %}
                     {% when Status::Draft %}
                         Draft
@@ -46,16 +46,9 @@
             src="https://coverartarchive.org/release-group/{{ self.mbid }}/front"
             alt="Cover art for &quot;{{ self.title }}&quot; by {{ self.artists }}."
             title="Cover art for &quot;{{ self.title }}&quot; by {{ self.artists }}."
-            class="
-                square
-                size:50%|50%
-                min:64x|64x
-        ">
-    
-        <p class="
-            font-family:Gentium|Plus
-            text:center
-        ">
+            class="coverart"
+        >
+        <p class="rating">
             Rating: <b>{{ self.rating }}</b>/10
         </p>
 
