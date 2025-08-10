@@ -52,7 +52,8 @@ fn reset_output_dir() -> anyhow::Result<()> {
     fs::create_dir("docs/")?;
     fs::create_dir("docs/blog/")?;
     fs::create_dir("docs/reviews/")?;
-    fs::create_dir("docs/coverart/")?;
+    fs::create_dir("docs/assets/")?;
+    fs::create_dir("docs/assets/coverart/")?;
 
     Ok(())
 }
@@ -121,7 +122,7 @@ fn render_reviews() -> anyhow::Result<()> {
 
         // Get the coverart image for self-hosting
         let coverart = agent.get(url).call()?.body_mut().read_to_vec()?;
-        let dst = format!("docs/coverart/{}.jpg", review.mbid);
+        let dst = format!("docs/assets/coverart/{}.jpg", review.mbid);
         fs::write(dst, coverart)?;
 
         let dst = Path::new("docs/reviews/")
@@ -153,7 +154,7 @@ fn copy_assets() -> anyhow::Result<()> {
         }
 
         let src = entry.path();
-        let dst = Path::new("docs/").join(src.strip_prefix("assets/")?);
+        let dst = Path::new("docs/").join(src);
         fs::copy(src, dst)?;
     }
 
