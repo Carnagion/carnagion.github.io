@@ -52,6 +52,7 @@ fn reset_output_dir() -> anyhow::Result<()> {
     fs::create_dir("docs/")?;
     fs::create_dir("docs/blog/")?;
     fs::create_dir("docs/reviews/")?;
+    fs::create_dir("docs/coverart/")?;
 
     Ok(())
 }
@@ -112,6 +113,16 @@ fn render_reviews() -> anyhow::Result<()> {
         let content = fs::read_to_string(src)?;
         let md = Markdown::new(&content, &arena);
         let review = Review::from_content(md, &agent)?;
+
+        let url = format!(
+            "https://coverartarchive.org/release-group/{}/front",
+            review.mbid,
+        );
+
+        // Get the coverart image for self-hosting
+        let coverart = agent.get(url).call()?.body_mut().read_to_vec()?;
+        let dst = format!("docs/coverart/{}.jpg", review.mbid);
+        fs::write(dst, coverart)?;
 
         let dst = Path::new("docs/reviews/")
             .join(format!(
