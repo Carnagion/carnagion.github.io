@@ -50,7 +50,7 @@ impl<'a> Review<'a> {
         // NOTE: See https://musicbrainz.org/doc/MusicBrainz_API for details on how the MusicBrainz API can
         //       be queried.
         let url = format!(
-            "https://musicbrainz.org/ws/2/release-group/{}?inc=artists+genres&fmt=json",
+            "https://musicbrainz.org/ws/2/release-group/{}?inc=artists&fmt=json",
             meta.mbid,
         );
 
