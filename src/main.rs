@@ -120,7 +120,7 @@ fn render_reviews() -> anyhow::Result<()> {
             review.mbid,
         );
 
-        // Get the coverart image for self-hosting
+        // Save the coverart image for self-hosting
         let coverart = agent.get(url).call()?.body_mut().read_to_vec()?;
         let dst = format!("docs/assets/coverart/{}.jpg", review.mbid);
         fs::write(dst, coverart)?;
