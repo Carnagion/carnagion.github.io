@@ -187,7 +187,6 @@ body {
 
         .rating {
             font-family: var(--font-aside);
-            text-align: center;
         }
     }
 
@@ -217,4 +216,9 @@ body {
     li {
         display: inline-block;
     }
+}
+
+/* Center text */
+.center {
+    text-align: center;
 }

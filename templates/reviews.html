@@ -22,14 +22,14 @@
                 {% if let Status::Published { published, updated } = review.status %}
                     <li>
                         <article>
-                            <header class="text:center">
+                            <header>
                                 <img
                                     src="/assets/coverart/{{ review.mbid }}.jpg"
                                     alt="Cover art for &quot;{{ review.title }}&quot; by {{ review.artists }}."
                                     title="Cover art for &quot;{{ review.title }}&quot; by {{ review.artists }}."
                                     class="coverart"
                                 >
-                                <h3>
+                                <h3 class="center">
                                     <a href="/reviews/{{ slug::slugify(review.title) }}-{{ slug::slugify(review.artists) }}">
                                         <em>{{ review.title }}</em>
                                         &middot;
@@ -38,7 +38,7 @@
                                 </h3>
                             </header>
     
-                            <p class="rating">
+                            <p class="rating center">
                                 Rating: <b>{{ review.rating }}</b>/10
                             </p>
 
