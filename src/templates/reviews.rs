@@ -11,6 +11,8 @@ use super::blog::article::Status;
 pub mod review;
 use review::Review;
 
+pub mod feed;
+
 #[derive(Debug, Clone, Template)]
 #[template(path = "reviews.html")]
 pub struct Reviews<'a> {

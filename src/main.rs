@@ -15,10 +15,10 @@ use markdown::Markdown;
 
 mod templates;
 use templates::{
-    blog::{article::Article, feed::Feed, Blog},
+    blog::{self, article::Article, Blog},
     index::Index,
     not_found::NotFound,
-    reviews::{review::Review, Reviews},
+    reviews::{self, review::Review, Reviews},
 };
 
 fn main() -> anyhow::Result<()> {
@@ -89,7 +89,7 @@ fn render_blog() -> anyhow::Result<()> {
     fs::write("docs/blog.html", blog.render()?)?;
 
     // Render Atom feed
-    let feed = Feed { blog };
+    let feed = blog::feed::Feed { blog };
     fs::write("docs/blog/atom.xml", feed.render()?)?;
 
     Ok(())
@@ -142,6 +142,10 @@ fn render_reviews() -> anyhow::Result<()> {
     // Render reviews page
     let reviews = Reviews { reviews };
     fs::write("docs/reviews.html", reviews.render()?)?;
+
+    // Render Atom feed
+    let feed = reviews::feed::Feed { reviews };
+    fs::write("docs/reviews/atom.xml", feed.render()?)?;
 
     Ok(())
 }
