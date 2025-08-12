@@ -1,12 +1,12 @@
-Hello there! :wave: I'm Indraneel [^pronounciation], a computer scientist, programmer, and musician. I'm currently a final-year computer science and artificial intelligence student at the [University of Nottingham](https://www.nottingham.ac.uk/).
+Hello there! :wave: I'm Indraneel [^pronounciation], a computer scientist, programmer, and musician. I recently graduated from the [University of Nottingham](https://www.nottingham.ac.uk/) with a degree in computer science and artificial intelligence, and am currently employed in Switzerland 🇨🇭.
 
 ## Interests
 
 My current interests lie mainly in the fields of optimisation (the mathematical kind), metaheuristics and hyperheuristics, machine learning, programming language and compiler design, and type theory.
 
-I enjoy working on challenging problems in these areas — like my [undergraduate dissertation](https://github.com/Carnagion/dissertation) on integrated runway sequencing and de-icing, or my university's research on [OPM-MEG (Magnetoencephalography with Optically Pumped Magnetometers)](https://www.nottingham.ac.uk/research/groups/spmic/research/meg-and-opm.aspx), for which I developed a metaheuristic-based multivariable optimisation method to calibrate magnetic sensors.
+I enjoy working on challenging problems in these areas — like my [first undergraduate dissertation](https://github.com/Carnagion/dissertation) on integrated runway sequencing and de-icing, or my university's research on [OPM-MEG (Magnetoencephalography with Optically Pumped Magnetometers)](https://www.nottingham.ac.uk/research/groups/spmic/research/meg-and-opm.aspx), for which I developed a metaheuristic-based multivariable optimisation method to calibrate magnetic sensors.
 
-When I'm not engrossed in programming or university work I'm usually playing a video game or listening to music — I'm a big fan of progressive rock and metal. I also play the electronic keyboard, guitar, and bass.
+When I'm not engrossed in programming or work I'm usually reading, gaming, or listening to music — I'm a big fan of progressive rock and metal. I also play the electronic keyboard, guitar, and bass.
 
 ## Projects
 
@@ -14,7 +14,9 @@ I've worked on various projects over the years, most of which are open-source. H
 
 - [`heur`](https://github.com/Carnagion/heur), a Rust library implementing a flexible, zero-cost combinator-based approach to constructing metaheuristics, inspired by parser combinators and iterators.
 
-- [My undergraduate dissertation](https://github.com/Carnagion/dissertation) on *integrated runway sequencing and de-icing*, a novel runway scheduling approach yielding significant reductions in flight delays even for highly busy airports such as London Heathrow.
+- [My year 3 undergraduate dissertation](https://github.com/Carnagion/dissertation) on *integrated runway sequencing and de-icing*, a novel runway scheduling approach yielding significant reductions in flight delays even for highly busy airports such as London Heathrow.
+
+- [My year 4 undergraduate dissertation](https://github.com/Carnagion/plagiarism-detection) on source code plagiarism detection and LLM usage detection using statistical analyses to estimate the probability of independence of any two source code instances.
 
 - [`lamb`](https://github.com/Carnagion/lamb), a Rust library for the untyped lambda calculus, supporting various β-reduction strategies in a generic manner and offering macros for convenient construction of terms in code.
 
