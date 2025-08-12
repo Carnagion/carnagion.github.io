@@ -38,7 +38,10 @@
                                 </h3>
                             </header>
     
-                            <p class="rating center">
+                            <p class="subtitle center">
+                                {% let datetime = published.strftime("%FT%T%.f%:z") %}
+                                <time datetime="{{ datetime }}">{{ published.strftime("%d %B %Y") }}</time>
+                                <b>&middot;</b>
                                 Rating: <b>{{ review.rating }}</b>/10
                             </p>
 

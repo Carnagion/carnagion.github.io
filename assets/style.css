@@ -184,10 +184,6 @@ body {
             min-height: 16rem;
             padding: 0;
         }
-
-        .rating {
-            font-family: var(--font-aside);
-        }
     }
 
     >footer {
