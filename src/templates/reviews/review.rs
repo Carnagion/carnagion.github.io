@@ -8,7 +8,7 @@ use ureq::Agent;
 
 use uuid::Uuid;
 
-use crate::{markdown::Markdown, templates::blog::article::Status};
+use crate::{markdown::Markdown, templates::Status};
 
 #[derive(Debug, Clone, Template)]
 #[template(path = "reviews/review.html")]

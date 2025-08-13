@@ -2,7 +2,9 @@ use askama::Template;
 
 use jiff::Zoned;
 
-use super::{article::Status, Blog};
+use crate::templates::last_updated;
+
+use super::{Blog, Status};
 
 #[derive(Debug, Clone, Template)]
 #[template(path = "blog/atom.xml")]
@@ -11,21 +13,7 @@ pub struct Feed<'a> {
 }
 
 impl Feed<'_> {
-    fn last_updated(&self) -> Option<&Zoned> {
-        self.blog
-            .articles
-            .iter()
-            .filter_map(|article| match &article.status {
-                Status::Draft => None,
-                Status::Published {
-                    published,
-                    updated: None,
-                } => Some(published),
-                Status::Published {
-                    published,
-                    updated: Some(updated),
-                } => Some(published.max(updated)),
-            })
-            .max()
+    fn last_updated(&self) -> Option<Zoned> {
+        last_updated(&self.blog.articles, |article| &article.status)
     }
 }

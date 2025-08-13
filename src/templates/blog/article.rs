@@ -1,12 +1,10 @@
 use askama::Template;
 
-use jiff::Zoned;
-
 use serde::Deserialize;
 
 use thiserror::Error;
 
-use crate::markdown::Markdown;
+use crate::{markdown::Markdown, templates::Status};
 
 #[derive(Debug, Clone, Template)]
 #[template(path = "blog/article.html")]
@@ -35,19 +33,6 @@ impl<'a> Article<'a> {
             status: meta.status,
         })
     }
-}
-
-#[derive(Debug, Default, Clone, Eq, PartialEq, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "kebab-case")]
-pub enum Status {
-    #[default]
-    Draft,
-    #[serde(untagged)]
-    Published {
-        published: Zoned,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        updated: Option<Zoned>,
-    },
 }
 
 #[derive(Debug, Error)]

@@ -1,4 +1,4 @@
-use std::{cmp::Reverse, fs};
+use std::fs;
 
 use askama::Template;
 
@@ -6,8 +6,10 @@ use comrak::Arena;
 
 use crate::markdown::Markdown;
 
+use super::{archive, Status};
+
 pub mod article;
-use article::{Article, Status};
+use article::Article;
 
 pub mod feed;
 
@@ -18,21 +20,7 @@ pub struct Blog<'a> {
 }
 
 impl<'a> Blog<'a> {
-    fn archive(&self) -> Vec<Article<'a>> {
-        let mut articles = self
-            .articles
-            .iter()
-            .filter(|article| article.status != Status::Draft)
-            .cloned()
-            .collect::<Vec<_>>();
-
-        articles.sort_unstable_by_key(|article| {
-            Reverse(match &article.status {
-                Status::Draft => None,
-                Status::Published { published, .. } => Some(published).cloned(),
-            })
-        });
-
-        articles
+    fn archive(&self) -> Vec<&Article<'a>> {
+        archive(&self.articles, |article| &article.status)
     }
 }
