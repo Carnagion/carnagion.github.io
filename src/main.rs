@@ -124,17 +124,15 @@ fn render_reviews() -> anyhow::Result<()> {
             .with_extension("html");
         fs::write(dst, review.render()?)?;
 
-        // Save the coverart image for self-hosting, but only if it doesn't already exist
-        let dst = format!("docs/assets/coverart/{}.jpg", review.mbid);
-        if !fs::exists(&dst)? {
-            let url = format!(
-                "https://coverartarchive.org/release-group/{}/front",
-                review.mbid,
-            );
+        // Save the coverart image for self-hosting
+        let url = format!(
+            "https://coverartarchive.org/release-group/{}/front",
+            review.mbid,
+        );
 
-            let coverart = agent.get(url).call()?.body_mut().read_to_vec()?;
-            fs::write(dst, coverart)?;
-        }
+        let coverart = agent.get(url).call()?.body_mut().read_to_vec()?;
+        let dst = format!("docs/assets/coverart/{}.jpg", review.mbid);
+        fs::write(dst, coverart)?;
 
         reviews.push(review);
     }
