@@ -1,7 +1,14 @@
 {% extends "page.html" %}
 
 {%- block title -%} Blog &middot; Indraneel Mahendrakumar {%- endblock title -%}
-{%- block description -%} My blog {%- endblock description -%}
+{%- block description -%} Indraneel Mahendrakumar's blog {%- endblock description -%}
+
+{%- block meta -%}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Blog &middot; Indraneel Mahendrakumar">
+    <meta property="og:description" content="Indraneel Mahendrakumar's blog">
+    <meta property="og:url" content="https://carnagion.github.io/blog">
+{%- endblock meta -%}
 
 {% block content %}
     <article>

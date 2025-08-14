@@ -3,6 +3,24 @@
 {%- block title -%} {{ self.title }} &middot; Indraneel Mahendrakumar {%- endblock title -%}
 {%- block description -%} {{ self.description }} {%- endblock description -%}
 
+{%- block meta -%}
+    <meta property="og:type" content="article">
+    <meta property="article:author" content="Indraneel Mahendrakumar">
+
+    {%- if let Status::Published { published, updated } = self.status -%}
+        {% let updated = updated.as_ref().unwrap_or(published) %}
+        {% let published = published.strftime("%FT%T%.f%:z") %}
+        {% let updated = updated.strftime("%FT%T%.f%:z") %}
+
+        <meta property="article:published_time" content="{{ published }}">
+        <meta property="article:modified_time" content="{{ updated }}">
+    {%- endif -%}
+
+    <meta property="og:title" content="{{ self.title }} &middot; Indraneel Mahendrakumar">
+    <meta property="og:description" content="{{ self.description }}">
+    <meta property="og:url" content="https://carnagion.github.io/blog/{{ slug::slugify(self.title) }}">
+{%- endblock meta -%}
+
 {% block content %}
     <article>
         <header>
