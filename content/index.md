@@ -4,9 +4,9 @@ Hello there! :wave: I'm Indraneel [^pronounciation], a computer scientist, progr
 
 My current interests lie mainly in the fields of optimisation (the mathematical kind), metaheuristics and hyperheuristics, machine learning, programming language and compiler design, and type theory.
 
-I enjoy working on challenging problems in these areas — like my [first undergraduate dissertation](https://github.com/Carnagion/dissertation) on integrated runway sequencing and de-icing, or my university's research on [OPM-MEG (Magnetoencephalography with Optically Pumped Magnetometers)](https://www.nottingham.ac.uk/research/groups/spmic/research/meg-and-opm.aspx), for which I developed a metaheuristic-based multivariable optimisation method to calibrate magnetic sensors.
+I've worked on various challenging problems within these areas --- like my [Y3 undergraduate dissertation](https://github.com/Carnagion/dissertation) on integrated runway sequencing and de-icing, [Y4 undergraduate dissertation](https://github.com/Carnagion/plagiarism-detection) on plagiarism and LLM detection, and my university's research on [OPM-MEG (Magnetoencephalography with Optically Pumped Magnetometers)](https://www.nottingham.ac.uk/research/groups/spmic/research/meg-and-opm.aspx), for which I developed a metaheuristic-based multivariable optimisation method to calibrate magnetic sensors.
 
-When I'm not engrossed in programming or work I'm usually reading, gaming, or listening to music — I'm a big fan of progressive rock and metal. I also play the electronic keyboard, guitar, and bass.
+When I'm not engrossed in programming or work I'm usually reading, gaming, or listening to music --- some of my favourite genres include prog metal, power metal, death metal, and pop punk, to name a few. I regularly review albums I've listened to [here](/reviews). I also play the electronic keyboard, guitar, and (electric) bass.
 
 ## Projects
 
@@ -20,7 +20,7 @@ I've worked on various projects over the years, most of which are open-source. H
 
 - [`lamb`](https://github.com/Carnagion/lamb), a Rust library for the untyped lambda calculus, supporting various β-reduction strategies in a generic manner and offering macros for convenient construction of terms in code.
 
-You can view more of my projects on [GitHub](https://github.com/Carnagion).
+Most of my projects are open-source and hosted on [GitHub](https://github.com/Carnagion).
 
 ## Blog
 
@@ -30,11 +30,11 @@ I mainly write about things relating to my fields of interest, including interes
 
 You can find me via:
 
-- [Discord](https://discord.com/users/carnagion), where I go by the username `carnagion`
-- [GitHub](https://github.com/Carnagion), as `Carnagion` again
-- or email, at [`indraneel.mahendrakumar@gmail.com`](mailto:indraneel.mahendrakumar@gmail.com)
+- [Discord](https://discord.com/users/carnagion), where I go by the username `carnagion`,
+- [GitHub](https://github.com/Carnagion), as `Carnagion` again,
+- or email, at [`indraneel.mahendrakumar@gmail.com`](mailto:indraneel.mahendrakumar@gmail.com).
 
-Out of the above, I'll likely respond the quickest on Discord. I'll probably be hanging around the [Rust Programming Language Community Server](https://discord.com/invite/rust-lang-community) (RPLCS), where I often spend my time helping beginners and getting into pointless debates with strangers on the internet.
+Out of the above, I'll respond the quickest on Discord. I'll probably be hanging around the [Rust Programming Language Community Server](https://discord.com/invite/rust-lang-community) (RPLCS), where I often help beginners and get into pointless debates with strangers on the internet.
 
 ---
 
