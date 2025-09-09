@@ -31,10 +31,26 @@ a {
 }
 
 body {
-    display: grid;
-    grid-template-rows: 1fr auto;
-    grid-template-columns: minmax(min-content, 80ch) min-content;
-    align-items: start;
+    @media screen and (width >=800px) {
+        & {
+            display: grid;
+            grid-template-rows: 1fr auto;
+            grid-template-columns: minmax(min-content, 80ch) min-content;
+            align-items: start;
+        }
+    }
+
+    @media screen and (width >=640px) {
+        & {
+            font-size: 16px;
+        }
+    }
+
+    @media screen and (width < 640px) {
+        & {
+            font-size: 14px;
+        }
+    }
 
     margin: 0 auto;
     padding: 1rem;
@@ -53,20 +69,60 @@ body {
     }
 
     >header {
-        grid-row: 1;
-        grid-column: 2;
+        @media screen and (width >=800px) {
+            & {
+                grid-row: 1;
+                grid-column: 2;
+
+                /* Fix the navbar to the top of the screen when scrolling */
+                position: sticky;
+                top: 1rem;
+            }
+        }
+
+        @media screen and (width < 800px) {
+            & {
+                display: grid;
+                grid-template-rows: auto;
+                grid-template-columns: auto 1fr;
+                gap: 2rem;
+            }
+
+            .avatar {
+                grid-row: 1;
+                grid-column: 1;
+
+                max-width: 4rem;
+                max-height: 4rem;
+            }
+
+            >nav {
+                grid-row: 1;
+                grid-column: 2;
+            }
+
+            .navtitle {
+                margin-top: 0;
+            }
+
+            .navlinks {
+                display: flex;
+
+                margin: 0;
+
+                li {
+                    display: inline-block;
+                    margin-right: 1rem;
+                }
+            }
+        }
 
         padding: 1rem;
-
-        /* Fix the navbar to the top of the screen when scrolling */
-        position: sticky;
-        top: 1rem;
 
         .avatar {
             /* Ensure the image is a square */
             aspect-ratio: 1/1;
             width: 100%;
-            height: 100%;
 
             border: 1px solid var(--colour-shadow);
             box-shadow: 0.25rem 0.25rem var(--colour-shadow);
@@ -80,8 +136,12 @@ body {
     }
 
     >main {
-        grid-row: 1;
-        grid-column: 1;
+        @media screen and (width >=800px) {
+            & {
+                grid-row: 1;
+                grid-column: 1;
+            }
+        }
 
         padding: 1rem;
 
@@ -187,8 +247,12 @@ body {
     }
 
     >footer {
-        grid-row: 2;
-        grid-column: 1;
+        @media screen and (width >=800px) {
+            & {
+                grid-row: 2;
+                grid-column: 1;
+            }
+        }
 
         padding: 1rem;
 
