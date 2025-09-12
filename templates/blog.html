@@ -22,7 +22,7 @@
     
         {% let md = fs::read_to_string("content/blog.md")? %}
         {% let arena = Arena::new() %}
-        {{ Markdown::new(md, arena).to_html()?|safe }}
+        {{ Markdown::new(md, arena).to_html()? | safe }}
     
         <ul class="unlist">
             {% for article in self.archive() %}

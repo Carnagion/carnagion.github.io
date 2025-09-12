@@ -44,11 +44,7 @@
 
                 {% let (fast, slow) = self.content.reading_time() %}
                 {% if fast == slow %}
-                    {% if fast == 1 %}
-                        1 minute
-                    {% else %}
-                        {{ fast }} minutes
-                    {% endif %}
+                    {{ fast }} minute{{ fast | pluralize }}
                 {% else %}
                     {{ fast }}&ndash;{{ slow }} minutes
                 {% endif %}
@@ -57,6 +53,6 @@
             <hr>
         </header>
 
-        {{ self.content.to_html()?|safe }}
+        {{ self.content.to_html()? | safe }}
     </article>
 {% endblock content %}

@@ -22,6 +22,6 @@
 
         {% let md = fs::read_to_string("content/index.md")? %}
         {% let arena = Arena::new() %}
-        {{ Markdown::new(md, arena).to_html()?|safe }}
+        {{ Markdown::new(md, arena).to_html()? | safe }}
     </article>
 {% endblock content %}

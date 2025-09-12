@@ -22,7 +22,7 @@
     
         {% let md = fs::read_to_string("content/reviews.md")? %}
         {% let arena = Arena::new() %}
-        {{ Markdown::new(md, arena).to_html()?|safe }}
+        {{ Markdown::new(md, arena).to_html()? | safe }}
     
         <ul class="unlist">
             {% for review in self.archive() %}
@@ -53,7 +53,7 @@
                             </p>
 
                             {# TODO: Truncate HTML without making it unclosed #}
-                            {{ review.content.to_html()?|truncate(200)|safe }}
+                            {{ review.content.to_html()? | truncate(200) | safe }}
                             <p>
                                 <a href="/reviews/{{ slug::slugify(review.title) }}-{{ slug::slugify(review.artists) }}">(read more)</a>
                             </p>
