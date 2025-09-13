@@ -7,14 +7,11 @@ use comrak::{
     nodes::{AstNode, NodeHtmlBlock, NodeValue},
     Arena,
     ExtensionOptions,
-    ExtensionOptionsBuilder,
     Options,
     ParseOptions,
-    ParseOptionsBuilder,
-    PluginsBuilder,
+    Plugins,
     RenderOptions,
-    RenderOptionsBuilder,
-    RenderPluginsBuilder,
+    RenderPlugins,
 };
 
 use inkjet::theme::{self, Theme};
@@ -75,17 +72,16 @@ impl<'a> Markdown<'a> {
         replace_mathml(self.ast)?;
 
         let theme = Theme::from_helix(theme::vendored::GRUVBOX).unwrap(); // PANICS: This should be a valid theme.
-
         let inkjet = Inkjet::new(theme);
 
-        let render_plugins = RenderPluginsBuilder::default()
-            .codefence_syntax_highlighter(Some(&inkjet))
-            .build()
-            .unwrap(); // PANICS: None of the fields in this builder are required.
-        let plugins = PluginsBuilder::default()
-            .render(render_plugins)
-            .build()
-            .unwrap(); // PANICS: Same as above.
+        let render_plugins = RenderPlugins {
+            codefence_syntax_highlighter: Some(&inkjet),
+            ..RenderPlugins::default()
+        };
+
+        let plugins = Plugins {
+            render: render_plugins,
+        };
 
         let options = Options {
             extension: extension_options(),
@@ -175,37 +171,42 @@ pub enum ToHtmlError {
     Utf8(#[from] FromUtf8Error),
 }
 
-fn extension_options() -> ExtensionOptions {
-    ExtensionOptionsBuilder::default()
-        .autolink(true)
-        .description_lists(true)
-        .footnotes(true)
-        .front_matter_delimiter(Some(String::from("+++")))
-        .greentext(true)
-        .header_ids(Some(String::new()))
-        .math_dollars(true)
-        .multiline_block_quotes(true)
-        .shortcodes(true)
-        .spoiler(true)
-        .strikethrough(true)
-        .superscript(true)
-        .table(true)
-        .tagfilter(true) // NOTE: Needs to be enabled to escape potentially dangerous elements. See `render_options` below.
-        .tasklist(true)
-        .underline(true)
-        .build()
-        .unwrap() // PANICS: None of the fields in this builder are required.
+fn extension_options() -> ExtensionOptions<'static> {
+    ExtensionOptions {
+        autolink: true,
+        description_lists: true,
+        footnotes: true,
+        front_matter_delimiter: Some(String::from("+++")),
+        greentext: true,
+        header_ids: Some(String::new()),
+        math_dollars: true,
+        multiline_block_quotes: true,
+        shortcodes: true,
+        spoiler: true,
+        strikethrough: true,
+        subscript: true,
+        superscript: true,
+        table: true,
+        tagfilter: true, // NOTE: Needs to be enabled to escape potentially dangerous elements. See `render_options` below.
+        tasklist: true,
+        underline: true,
+        ..ExtensionOptions::default()
+    }
 }
 
 fn parse_options() -> ParseOptions<'static> {
-    ParseOptionsBuilder::default().smart(true).build().unwrap() // PANICS: Same as above.
+    ParseOptions {
+        smart: true,
+        ..ParseOptions::default()
+    }
 }
 
 fn render_options() -> RenderOptions {
-    RenderOptionsBuilder::default()
+    RenderOptions {
+        figure_with_caption: true,
         // NOTE: This option needs to be enabled or else `comrak` rejects `mathml` elements. However, the `tagfilter`
         //       extension is also enabled above, so potentially dangerous elements are escaped anyways.
-        .unsafe_(true)
-        .build()
-        .unwrap() // PANICS: Same as above.
+        unsafe_: true,
+        ..RenderOptions::default()
+    }
 }
