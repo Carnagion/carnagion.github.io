@@ -4,7 +4,7 @@ description = "Generating playlists by solving the knapsack problem"
 status = { published = "2024-11-20 18:12[Europe/London]", updated = "2024-11-20 19:12[Europe/London]" }
 +++
 
-Imagine you want a power metal playlist for your hour-long gym session. Or maybe something relaxing for your daily commute. Or some pirate metal [^pirate-metal] to blast as you play drinking games with your friends. Or... whatever, you get the idea. In any case, you want some kind of playlist.
+Imagine you want a power metal playlist for your hour-long gym session. Or maybe something relaxing for your daily commute. Or some pirate metal[^pirate-metal] to blast as you play drinking games with your friends. Or... whatever, you get the idea. In any case, you want some kind of playlist.
 
 Now, the normal and totally sane way of doing this would be to go through your music library and add the songs you want until you're satisfied. Maybe you even do this on a regular basis.
 
@@ -48,7 +48,7 @@ It turns out that the knapsack problem is quite hard to solve. In fact, it's [NP
 
 It is also, however, one of the most well-researched problems in the field of optimisation, so there are plenty of established approaches to solving it.
 
-As an example [^incomplete-example], we can implement an [Iterated Local Search (ILS)](https://en.wikipedia.org/wiki/Iterated_local_search) metaheuristic using my experimental Rust library [`heur`](https://github.com/Carnagion/heur). Given the following types for representing problem data and solutions:
+As an example,[^incomplete-example] we can implement an [Iterated Local Search (ILS)](https://en.wikipedia.org/wiki/Iterated_local_search) metaheuristic using my experimental Rust library [`heur`](https://github.com/Carnagion/heur). Given the following types for representing problem data and solutions:
 
 ```rs
 struct Problem {

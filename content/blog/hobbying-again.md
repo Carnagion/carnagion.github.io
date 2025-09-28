@@ -8,9 +8,9 @@ A lot has happened in the past few months. I graduated from university, acquired
 
 During this time, I came to realise a number of things, of which the biggest was that programming had almost completely taken over my free time. And I don't mean the programming I do for university assignments or work, I mean programming as a *hobby*.
 
-I started programming way back in 2020, when COVID was at its worst and schools pivoted to online learning, providing students with plenty of opportunities to slack off while teachers were unable to observe their activities. My preferred method of procrastination at the time was to play [*RimWorld*](https://store.steampowered.com/app/294100/RimWorld/) nearly every waking hour, and before long I found myself writing mods for the game [^rimworld-playtime].
+I started programming way back in 2020, when COVID was at its worst and schools pivoted to online learning, providing students with plenty of opportunities to slack off while teachers were unable to observe their activities. My preferred method of procrastination at the time was to play [*RimWorld*](https://store.steampowered.com/app/294100/RimWorld/) nearly every waking hour, and before long I found myself writing mods for the game.[^rimworld-playtime]
 
-In the relatively short span of a year or so, I went from not knowing what a variable was to studying computer science at university. My habit of hyperfixation latched on to this newfound fascination with programming, and I started using it as a means of procrastinating other tasks --- including other programming tasks [^good-rectangle].
+In the relatively short span of a year or so, I went from not knowing what a variable was to studying computer science at university. My habit of hyperfixation latched on to this newfound fascination with programming, and I started using it as a means of procrastinating other tasks --- including other programming tasks.[^good-rectangle]
 
 Unfortunately, this spelled disaster for most of my other forms of entertainment, including but not limited to reading, gaming, composing and playing music, *LEGO*, and watching movies or shows.
 

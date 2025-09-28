@@ -1,4 +1,4 @@
-Hello there! :wave: I'm Indraneel [^pronounciation], a computer scientist, programmer, and musician. I recently graduated from the [University of Nottingham](https://www.nottingham.ac.uk/) with a degree in computer science and artificial intelligence, and am currently employed in Switzerland 🇨🇭.
+Hello there! :wave: I'm Indraneel,[^pronounciation] a computer scientist, programmer, and musician. I recently graduated from the [University of Nottingham](https://www.nottingham.ac.uk/) with a degree in computer science and artificial intelligence, and am currently employed in Switzerland 🇨🇭.
 
 ## Interests
 

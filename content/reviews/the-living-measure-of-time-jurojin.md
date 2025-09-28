@@ -4,7 +4,7 @@ rating = 7
 status = { published = "2025-08-17 15:35[Europe/Zurich]" }
 +++
 
-If I had a nickel for every time a progressive metal band released a particularly interesting debut album in the mid-2010s and then vanished forevermore, I'd have three nickels --- which isn't a lot, but it *is* weird that it's happened thrice now [^many-such-cases].
+If I had a nickel for every time a progressive metal band released a particularly interesting debut album in the mid-2010s and then vanished forevermore, I'd have three nickels --- which isn't a lot, but it *is* weird that it's happened thrice now.[^many-such-cases]
 
 *The Living Measure of Time* is fairly short for a prog metal album (only 30 minutes), with a sound that's reminescent of Tool and System of a Down (probably because the vocalist, James Alper, sounds a lot like SoaD's Serj Tankian). I discovered this album when its final track, "The Dreaming", popped up on my Spotify daylist a few days ago.
 
