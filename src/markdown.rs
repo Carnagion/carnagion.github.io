@@ -56,9 +56,6 @@ impl<'a> Markdown<'a> {
                     _ => None,
                 }?;
 
-                // Remove the front matter node
-                node.detach();
-
                 let front_matter =
                     front_matter.trim_matches(|c: char| c.is_whitespace() || c == '+');
                 Some(toml::from_str(front_matter))
