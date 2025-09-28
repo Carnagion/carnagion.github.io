@@ -98,7 +98,7 @@ impl<'a> Markdown<'a> {
 
                 // Render the paragraph to HTML
                 let mut html = BufWriter::new(Vec::new());
-                comrak::format_html(&para, &options, &mut html)?;
+                comrak::format_html(para, &options, &mut html)?;
                 let html = String::from_utf8(html.into_inner()?)?;
 
                 // Put the footnotes back where they belong
