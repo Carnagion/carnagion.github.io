@@ -63,6 +63,59 @@ impl<'a> Markdown<'a> {
             .unwrap_or_else(|| Err(toml::de::Error::custom("no front matter found")))
     }
 
+    pub fn extract_blurb(&self) -> Result<String, ToHtmlError> {
+        // Find the first paragraph node
+        let para = self.ast.children().find(|node| {
+            let value = &node.data.borrow().value;
+            matches!(value, NodeValue::Paragraph)
+        });
+
+        match para {
+            None => Ok(String::new()),
+            Some(para) => {
+                replace_mathml(para)?;
+
+                // Collect footnote refs and their sibling nodes
+                let mut footnote_sibs = Vec::new();
+                for node in para.descendants() {
+                    let value = &mut node.data.borrow_mut().value;
+                    let NodeValue::FootnoteReference(_) = value else {
+                        continue;
+                    };
+                    footnote_sibs.push((node, node.next_sibling()));
+                }
+
+                // Temporarily detach the footnote refs so that we can render the blurb without them
+                for (footnote, _) in &footnote_sibs {
+                    footnote.detach();
+                }
+
+                let options = Options {
+                    extension: extension_options(),
+                    parse: parse_options(),
+                    render: render_options(),
+                };
+
+                // Render the paragraph to HTML
+                let mut html = BufWriter::new(Vec::new());
+                comrak::format_html(&para, &options, &mut html)?;
+                let html = String::from_utf8(html.into_inner()?)?;
+
+                // Put the footnotes back where they belong
+                let parent = para.parent().unwrap();
+                for (footnote, sib) in &footnote_sibs {
+                    if let Some(sib) = sib {
+                        footnote.insert_before(sib);
+                    } else {
+                        parent.append(footnote);
+                    }
+                }
+
+                Ok(html)
+            },
+        }
+    }
+
     pub fn to_html(&self) -> Result<String, ToHtmlError> {
         // NOTE: We replace LaTeX equations with MathML here rather than on construction because the AST may be modified
         //       from the outside even after construction.

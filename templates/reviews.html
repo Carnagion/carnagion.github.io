@@ -52,8 +52,7 @@
                                 Rating: <b>{{ review.rating }}</b>/10
                             </p>
 
-                            {# TODO: Truncate HTML without making it unclosed #}
-                            {{ review.content.to_html()? | truncate(200) | safe }}
+                            {{ review.content.extract_blurb()? | safe }}
                             <p>
                                 <a href="/reviews/{{ slug::slugify(review.title) }}-{{ slug::slugify(review.artists) }}">(read more)</a>
                             </p>
