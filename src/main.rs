@@ -1,6 +1,6 @@
 #![deny(rust_2018_idioms)]
 
-use std::{fs, io, path::Path};
+use std::{fs, io, path::Path, thread};
 
 use askama::Template;
 
@@ -100,42 +100,49 @@ fn render_reviews() -> anyhow::Result<()> {
 
     let arena = Arena::new();
 
-    // Render music reviews
-    let mut reviews = Vec::new();
-    for entry in WalkDir::new("content/reviews/") {
-        let entry = entry?;
-        let src = entry.path();
+    let reviews = thread::scope(|scope| {
+        let agent = &agent;
 
-        // Ignore directories and non-Markdown files
-        if src.extension().is_none_or(|ext| ext != "md") {
-            continue;
+        // Render music reviews
+        let mut reviews = Vec::new();
+        for entry in WalkDir::new("content/reviews/") {
+            let entry = entry?;
+            let src = entry.path();
+
+            // Ignore directories and non-Markdown files
+            if src.extension().is_none_or(|ext| ext != "md") {
+                continue;
+            }
+
+            let content = fs::read_to_string(src)?;
+            let md = Markdown::new(&content, &arena);
+            let review = Review::from_content(md, agent)?;
+
+            let dst = Path::new("docs/reviews/")
+                .join(format!(
+                    "{}-{}",
+                    slug::slugify(&review.title),
+                    slug::slugify(&review.artists),
+                ))
+                .with_extension("html");
+            fs::write(dst, review.render()?)?;
+
+            // Save the coverart image for self-hosting
+            let mbid = review.mbid;
+            scope.spawn(move || {
+                let url = format!("https://coverartarchive.org/release-group/{}/front", mbid);
+                let coverart = agent.get(url).call()?.body_mut().read_to_vec()?;
+                let dst = format!("docs/assets/coverart/{}.jpg", review.mbid);
+                fs::write(dst, coverart)?;
+
+                anyhow::Ok(())
+            });
+
+            reviews.push(review);
         }
 
-        let content = fs::read_to_string(src)?;
-        let md = Markdown::new(&content, &arena);
-        let review = Review::from_content(md, &agent)?;
-
-        let dst = Path::new("docs/reviews/")
-            .join(format!(
-                "{}-{}",
-                slug::slugify(&review.title),
-                slug::slugify(&review.artists),
-            ))
-            .with_extension("html");
-        fs::write(dst, review.render()?)?;
-
-        // Save the coverart image for self-hosting
-        let url = format!(
-            "https://coverartarchive.org/release-group/{}/front",
-            review.mbid,
-        );
-
-        let coverart = agent.get(url).call()?.body_mut().read_to_vec()?;
-        let dst = format!("docs/assets/coverart/{}.jpg", review.mbid);
-        fs::write(dst, coverart)?;
-
-        reviews.push(review);
-    }
+        anyhow::Ok(reviews)
+    })?;
 
     // Render reviews page
     let reviews = Reviews { reviews };
