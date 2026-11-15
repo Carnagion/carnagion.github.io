@@ -1,48 +1,48 @@
 {% extends "page.html" %}
 
 {%- block title -%} Blog &middot; Indraneel Mahendrakumar {%- endblock title -%}
-{%- block description -%} Indraneel Mahendrakumar's blog {%- endblock description -%}
+{%- block description -%} My blog {%- endblock description -%}
 
 {%- block meta -%}
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Blog &middot; Indraneel Mahendrakumar">
-    <meta property="og:description" content="Indraneel Mahendrakumar's blog">
-    <meta property="og:url" content="https://carnagion.github.io/blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blog &middot; Indraneel Mahendrakumar">
+<meta property="og:description" content="Indraneel Mahendrakumar's blog">
+<meta property="og:url" content="https://carnagion.github.io/blog">
 {%- endblock meta -%}
 
 {% block content %}
-    <article>
-        <header>
-            <h1 class="title">Blog</h1>
-            <p class="subtitle">
-                A place for my occasional ramblings about ideas and projects that I find interesting.
-            </p>
-            <hr>
-        </header>
-    
-        {% let md = fs::read_to_string("content/blog.md")? %}
-        {% let arena = Arena::new() %}
-        {{ Markdown::new(md, arena).to_html()? | safe }}
-    
-        <ul class="unlist">
-            {% for article in self.archive() %}
-                {% if let Status::Published { published, updated } = article.status %}
-                    <li>
-                        <article>
-                            <h3>
-                                <a href="/blog/{{ slug::slugify(article.title) }}">{{ article.title }}</a>
-                            </h3>
-    
-                            <p>
-                                {% let datetime = published.strftime("%FT%T%.f%:z") %}
-                                <time datetime="{{ datetime }}" class="subtitle">{{ published.strftime("%d %B %Y") }}</time>
-                                <b>&middot;</b>
-                                {{ article.description }}
-                            </p>
-                        </article>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </article>
+<article>
+    <header>
+        <h1 class="title">Blog</h1>
+        <p class="subtitle">
+            A place for my occasional ramblings about ideas and projects that I find interesting.
+        </p>
+        <hr>
+    </header>
+
+    {% let md = fs::read_to_string("content/blog.md")? %}
+    {% let arena = Arena::new() %}
+    {{ Markdown::new(md, arena).to_html()? | safe }}
+
+    <ul class="unlist">
+        {% for article in self.archive() %}
+        {% if let Status::Published { published, updated } = article.status %}
+        <li>
+            <article>
+                <h3>
+                    <a href="/blog/{{ slug::slugify(article.title) }}">{{ article.title }}</a>
+                </h3>
+
+                <p>
+                    {% let datetime = published.strftime("%FT%T%.f%:z") %}
+                    <time datetime="{{ datetime }}" class="subtitle">{{ published.strftime("%d %B %Y") }}</time>
+                    <b>&middot;</b>
+                    {{ article.description }}
+                </p>
+            </article>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</article>
 {% endblock content %}

@@ -123,6 +123,8 @@ body {
             /* Ensure the image is a square */
             aspect-ratio: 1/1;
             width: 100%;
+            min-width: 8rem;
+            min-height: 8rem;
 
             border: 1px solid var(--colour-shadow);
             box-shadow: 0.25rem 0.25rem var(--colour-shadow);
