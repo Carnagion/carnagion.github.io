@@ -20,7 +20,7 @@ pub enum Status {
     #[serde(untagged)]
     Published {
         published: Zoned,
-        #[serde(skip_serializing_if = "Option::is_none")]
+        #[serde(default)]
         updated: Option<Zoned>,
     },
 }
