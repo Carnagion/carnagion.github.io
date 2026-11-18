@@ -25,16 +25,15 @@ fn main() -> anyhow::Result<()> {
     reset_output_dir()?;
 
     render_blog()?;
-
     render_reviews()?;
 
     // Render landing page
     let index = Index;
-    fs::write("docs/index.html", index.render()?)?;
+    fs::write(".html/index.html", index.render()?)?;
 
     // Render 404 page
     let not_found = NotFound;
-    fs::write("docs/404.html", not_found.render()?)?;
+    fs::write(".html/404.html", not_found.render()?)?;
 
     copy_assets()?;
 
@@ -43,17 +42,17 @@ fn main() -> anyhow::Result<()> {
 
 fn reset_output_dir() -> anyhow::Result<()> {
     // Remove the output directory and its contents, ignoring errors if it did not exist
-    match fs::remove_dir_all("docs/") {
+    match fs::remove_dir_all(".html/") {
         Err(err) if err.kind() == io::ErrorKind::NotFound => Ok(()),
         other => other,
     }?;
 
     // Re-create the output directory and necessary sub-directories
-    fs::create_dir("docs/")?;
-    fs::create_dir("docs/blog/")?;
-    fs::create_dir("docs/reviews/")?;
-    fs::create_dir("docs/assets/")?;
-    fs::create_dir("docs/assets/coverart/")?;
+    fs::create_dir(".html/")?;
+    fs::create_dir(".html/blog/")?;
+    fs::create_dir(".html/reviews/")?;
+    fs::create_dir(".html/assets/")?;
+    fs::create_dir(".html/assets/coverart/")?;
 
     Ok(())
 }
@@ -76,7 +75,7 @@ fn render_blog() -> anyhow::Result<()> {
         let md = Markdown::new(&content, &arena);
         let article = Article::from_content(md)?;
 
-        let dst = Path::new("docs/blog/")
+        let dst = Path::new(".html/blog/")
             .join(slug::slugify(&article.title))
             .with_extension("html");
         fs::write(dst, article.render()?)?;
@@ -86,11 +85,11 @@ fn render_blog() -> anyhow::Result<()> {
 
     // Render blog page
     let blog = Blog { articles };
-    fs::write("docs/blog.html", blog.render()?)?;
+    fs::write(".html/blog.html", blog.render()?)?;
 
     // Render Atom feed
     let feed = blog::feed::Feed { blog };
-    fs::write("docs/blog/atom.xml", feed.render()?)?;
+    fs::write(".html/blog/atom.xml", feed.render()?)?;
 
     Ok(())
 }
@@ -118,7 +117,7 @@ fn render_reviews() -> anyhow::Result<()> {
             let md = Markdown::new(&content, &arena);
             let review = Review::from_content(md, agent)?;
 
-            let dst = Path::new("docs/reviews/")
+            let dst = Path::new(".html/reviews/")
                 .join(format!(
                     "{}-{}",
                     slug::slugify(&review.title),
@@ -132,7 +131,7 @@ fn render_reviews() -> anyhow::Result<()> {
             scope.spawn(move || {
                 let url = format!("https://coverartarchive.org/release-group/{}/front", mbid);
                 let coverart = agent.get(url).call()?.body_mut().read_to_vec()?;
-                let dst = format!("docs/assets/coverart/{}.jpg", review.mbid);
+                let dst = format!(".html/assets/coverart/{}.jpg", review.mbid);
                 fs::write(dst, coverart)?;
 
                 anyhow::Ok(())
@@ -146,11 +145,11 @@ fn render_reviews() -> anyhow::Result<()> {
 
     // Render reviews page
     let reviews = Reviews { reviews };
-    fs::write("docs/reviews.html", reviews.render()?)?;
+    fs::write(".html/reviews.html", reviews.render()?)?;
 
     // Render Atom feed
     let feed = reviews::feed::Feed { reviews };
-    fs::write("docs/reviews/atom.xml", feed.render()?)?;
+    fs::write(".html/reviews/atom.xml", feed.render()?)?;
 
     Ok(())
 }
@@ -165,7 +164,7 @@ fn copy_assets() -> anyhow::Result<()> {
         }
 
         let src = entry.path();
-        let dst = Path::new("docs/").join(src);
+        let dst = Path::new(".html/").join(src);
         fs::copy(src, dst)?;
     }
 

@@ -2,4 +2,4 @@
 target/
 
 # Generated site
-docs/
+.html/
